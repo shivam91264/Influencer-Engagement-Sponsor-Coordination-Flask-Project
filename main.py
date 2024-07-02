@@ -1,11 +1,18 @@
 from flask import Flask
+from flask import render_template
 app = Flask(__name__)
 
+
+
 @app.route("/")
-def index():
-    return "<h1> flask project </h1>"
+def register():
+    return render_template("register.html")
+
+@app.route("/login")
+def login():
+    return render_template('login.html')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
     

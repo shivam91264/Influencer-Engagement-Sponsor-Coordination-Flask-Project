@@ -1,0 +1,804 @@
+/* login.html */
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.login {
+    width: 30vw;
+    height: 55vh;
+    margin: 150px auto;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.login>h2 {
+    text-align: center;
+    margin: 20px 0px;
+    font-size: 25px;
+}
+
+.form {
+    width: 20vw;
+    margin: auto;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;    
+    gap: 8px;
+}
+
+.form-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.form label {
+    font-size: 18px;
+}
+
+.role {
+    height: 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.form input {
+    height: 23px;
+    border-radius: 5px;
+    font-weight: 550;
+    font-size: 15px;
+}
+
+.btn {
+    padding: 4px 10px;
+    border-radius: 5px;
+    margin: 12px 0px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(169, 167, 243);
+}
+
+.already>p {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.already>p>a {
+    text-decoration: none;
+    color: blue;
+}
+
+
+
+/* home.html */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar {
+    background-color: black;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+
+.left-nav {
+    width: 50%;
+}
+
+.right-nav>ul {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.right-nav>ul>li {
+    list-style: none;
+}
+
+.right-nav>ul>li>a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+/*home -- content*/
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 70px 0px;
+
+}
+
+.left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 50%;
+
+    padding: 0px 30px;
+}
+
+.left-content>p {
+    font-size: 17px;
+}
+
+
+
+.right-content>img {
+    border-radius: 40px;
+}
+
+.main-btn {
+    padding: 8px 15px;
+    margin: 20px auto;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.horizontal-line {
+    background-color: black;
+    height: 2px;
+    width: 80%;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.our-expertise {
+    text-align: center;
+}
+
+.our-expertise>h2 {
+    padding: 30px;
+}
+
+.cards {
+    width: 80%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: row;
+    gap: 98px;
+}
+
+.card {
+    width: 320px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.card>h2 {
+    font-size: 20px;
+}
+
+.footer{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 15px 0px;
+    margin-top: 25px;
+    
+}
+
+
+
+/* influencers.html */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar {
+    background-color: black;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+
+.left-nav {
+    width: 50%;
+}
+
+.right-nav>ul {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.right-nav>ul>li {
+    list-style: none;
+}
+
+.right-nav>ul>li>a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+/*content*/
+
+.heading {
+
+    width: 80%;
+    margin: 0px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 50px;
+
+}
+
+.influe-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    /*background-color: blueviolet;*/
+
+    align-items: center;
+
+}
+
+.influe-cards-1 {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    margin: 0px auto;
+    /*background-color: aqua;*/
+    gap: 45px;
+
+}
+
+.influe-card {
+    background-color: #e20046;
+    color: black;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.influe-card>img {
+    border-radius: 10px;
+
+}
+
+.influe-card>.desc {
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.influe-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.horizontal-line {
+    background-color: black;
+    height: 2px;
+    width: 80%;
+    margin: auto;
+    border-radius: 10px;
+}
+
+
+
+
+.sec h2 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.sec {
+    /*background: black;*/
+    color: white;
+    padding: 24px;
+}
+
+.sec-influ:hover {
+    background-color: #414141;
+    color: white;
+}
+
+.sec-influ svg {
+    filter: invert(1);
+}
+
+.sec-influ {
+
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #2d2d2d;
+    padding: 15px;
+    max-width: 70vw;
+    margin: 5px auto;
+    cursor: pointer;
+}
+
+.font-color1 {
+    color: #f2f2f2;
+    font-weight: bold;
+}
+
+.font-color2 {
+    color: #e20046;
+    font-weight: bold;
+}
+
+
+/*card-btn*/
+.card-btn1 {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0;
+    font-size: 16px;
+}
+
+.influe-card:hover {
+    transform: translateY(2px);
+}
+
+.influe-card:hover .card-btn1 {
+    opacity: 1;
+}
+
+
+
+/* search.html */
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar {
+    background-color: black;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+
+.left-nav {
+    width: 50%;
+}
+
+.right-nav>ul {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.right-nav>ul>li {
+    list-style: none;
+}
+
+.right-nav>ul>li>a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+/*Search*/
+.search {
+    /*background-color: aqua;*/
+    text-align: end;
+    padding: 40px 80px;
+}
+
+.search>input {
+    padding: 10px 20px;
+    width: 30%;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.search>button {
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/*cards*/
+
+.influe-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    /*background-color: blueviolet;*/
+
+    align-items: center;
+
+}
+
+.influe-cards-1 {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    margin: 0px auto;
+    /*background-color: aqua;*/
+    gap: 45px;
+
+}
+
+.influe-card {
+    background-color: #e20046;
+    color: black;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.influe-card>img {
+    border-radius: 10px;
+
+}
+
+.influe-card>.desc {
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.influe-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/*card-btn*/
+
+/* .card-btn1 {
+    position: absolute;
+    left: 21%;
+    top: 40%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0;
+
+}
+
+.influe-card:hover .card-btn1 {
+    opacity: 1;
+    visibility: visible;
+} */
+
+
+
+/*card-btn*/
+.card-btn1 {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0;
+    font-size: 16px;
+}
+
+.influe-card:hover {
+    transform: translateY(2px);
+}
+
+.influe-card:hover .card-btn1 {
+    opacity: 1;
+}
+
+
+
+/* join_form.html */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar {
+    background-color: black;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+
+.left-nav {
+    width: 50%;
+}
+
+.right-nav>ul {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.right-nav>ul>li {
+    list-style: none;
+}
+
+.right-nav>ul>li>a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+
+/* contact-form */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-box>input {
+    width: 100%;
+    padding: 8px 10px;
+}
+
+
+
+.main-content {
+    width: 50vw;
+
+    margin: 50px auto;
+    text-align: center;
+
+}
+
+.main-content h2 {
+    /* background-color: aquamarine; */
+    margin-bottom: 30px;
+}
+
+
+.contact-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+/* contact.html */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar {
+    background-color: black;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+
+.left-nav {
+    width: 50%;
+}
+
+.right-nav>ul {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.right-nav>ul>li {
+    list-style: none;
+}
+
+.right-nav>ul>li>a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+
+/* contact-form */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-box>input {
+    width: 100%;
+    padding: 8px 10px;
+}
+
+.form-box>textarea {
+    width: 100%;
+    padding: 5px 10px;
+}
+
+
+.main-content {
+    width: 50vw;
+
+    margin: 50px auto;
+    text-align: center;
+
+}
+
+.main-content h2 {
+    /* background-color: aquamarine; */
+    margin-bottom: 30px;
+}
+
+
+.contact-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+
+/* sponsors */
+
+.sponsors {
+    /*background-color: violet;*/
+    width: 70vw;
+    height: 800px;
+    margin: 0px auto;
+}
+
+.sponsors>h2 {
+    /*background-color: aquamarine;*/
+    padding: 20px 0px;
+    font-size: 35px;
+}
+
+.spon-card {
+    background-color: rgb(115, 164, 239);
+    width: 33vw;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.spon-card>h3 {
+    /*background-color: blueviolet;*/
+    font-size: 25px;
+    padding: 15px 10px;
+}
+
+.card-mid {
+    /*background-color: rgb(142, 109, 172);*/
+    font-size: 17px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.card-bot {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.card-bot > button{
+    border-radius: 21px ;
+    padding: 3px 3px;
+    /* background-color: rgb(115, 164, 239); */
+
+}
+
+.spon-hr {
+    height: 1px;
+    /*background-color: blue;*/
+}
+
+.sponsors-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.sponsors-cards{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+
+.card-btn1 {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0;
+    font-size: 16px;
+}
+
+.spon-card:hover {
+    transform: translateY(2px);
+}
+
+.spon-card:hover .card-btn1 {
+    opacity: 1;
+}

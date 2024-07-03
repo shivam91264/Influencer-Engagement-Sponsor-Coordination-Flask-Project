@@ -14,10 +14,12 @@
 <div class="login">
     <h2>User Register</h2>
 
+
+    <form action="/" method="POST">
         <div class="form">
             <div class="form-list">
                 <label for="username">Role</label>
-                <select class="role">
+                <select name="options" class="role">
                     <option value="Influencer">Influencer</option>
                     <option value="sponsor">Sponsor</option>
                 </select>
@@ -34,7 +36,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <input class="btn" type="submit" value="Register">
+            <button class="btn" type="submit" value="Register">Register</button>
             <div class="already">
                 <p>Have an account? <a href="/login">Login</a> </p>
             </div>

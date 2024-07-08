@@ -36,6 +36,11 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {{messages}}
+                {% endif %}
+            {% endwith %}
             <button class="btn" type="submit" value="Register">Register</button>
             <div class="already">
                 <p>Have an account? <a href="/login">Login</a> </p>

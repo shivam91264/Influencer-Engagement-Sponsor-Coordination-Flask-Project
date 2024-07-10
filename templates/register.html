@@ -1,14 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='utilits.css') }}">
-    <title>User-Register</title>
-</head>
-
-<body> -->
 {% extends 'layout.html' %}
 {% block body %}
 <div class="login">
@@ -20,7 +10,7 @@
             <div class="form-list">
                 <label for="username">Role</label>
                 <select name="options" class="role">
-                    <option value="Influencer">Influencer</option>
+                    <option value="influencer">Influencer</option>
                     <option value="sponsor">Sponsor</option>
                 </select>
             </div>
@@ -36,11 +26,6 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {{messages}}
-                {% endif %}
-            {% endwith %}
             <button class="btn" type="submit" value="Register">Register</button>
             <div class="already">
                 <p>Have an account? <a href="/login">Login</a> </p>
@@ -50,7 +35,3 @@
 </div>
 
 {% endblock %}
-<!-- 
-</body>
-
-</html> -->

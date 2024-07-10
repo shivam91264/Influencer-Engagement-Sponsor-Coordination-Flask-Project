@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash
+
 
 
 
@@ -28,7 +30,7 @@ if __name__ == "__main__":
         db.create_all()
         user=Register.query.filter_by(role='admin').first()
         if not user:
-            user=Register(role='admin',username='admin',email='admin@admin',password='admin')
+            user=Register(role='admin',username='admin',email='admin@admin',password=generate_password_hash("admin"))
             db.session.add(user)
             db.session.commit()
     app.run(debug=True)

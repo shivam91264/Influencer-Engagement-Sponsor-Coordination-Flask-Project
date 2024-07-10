@@ -1,14 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='utilits.css') }}">
-    <title>User-Login</title>
-</head>
-
-<body> -->
 {% extends 'layout.html' %}
 {% block body %}
 <div class="login">
@@ -33,7 +23,7 @@
             </div>
             <input class="btn" type="submit" value="Login">
             <div class="already">
-                <p>Don't have an account? <a href="/register">Register</a> </p>
+                <p>Don't have an account? <a href="/">Register</a> </p>
             </div>
         </div>
     </form>
@@ -41,7 +31,3 @@
 </div>
 
 {% endblock %}
-<!-- 
-</body>
-
-</html> -->

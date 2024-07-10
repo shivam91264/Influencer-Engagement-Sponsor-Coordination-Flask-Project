@@ -21,20 +21,27 @@
                 <li><a href="/influencers">Influencers</a></li>
                 <li><a href="/sponsors">Sponsors</a></li>
                 <li><a href="/contact">Contact Us</a></li>
+                <button class="nav-btn"> <a href="/logout">Log Out</a> </button>
+
             </ul>
         </div>
     </div>
 
-    <!-- {% with messages = get_flashed_messages(with_categories=true)%}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{category}}">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flashes">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
                 {{ message }}
+                <span class="closebtn">&times;</span>
             </div>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}     -->
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+    </div>
 
     {% block body %}
     {% endblock %}

@@ -9,7 +9,7 @@
 .login {
     width: 30vw;
     height: 55vh;
-    margin: 150px auto;
+    margin: 110px auto;
     border: 2px solid black;
     border-radius: 10px;
 }
@@ -802,3 +802,50 @@
 .spon-card:hover .card-btn1 {
     opacity: 1;
 }
+
+
+/* message flash */
+
+
+.flash-messages {
+    margin-top: 20px;
+}
+
+.flashes {
+    margin: 5px auto;
+    padding: 0 20px;
+    max-width: 600px;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    /* margin-bottom: 20px; */
+    color: #fff;
+    font-size: 16px;
+    position: relative;
+    animation: 5s ease-out  ;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+}
+
+.alert-danger {
+    background-color: #f44336;
+}
+/* 
+.container {
+    padding: 20px;
+} */
+
+.closebtn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+

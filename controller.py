@@ -99,6 +99,13 @@ def influencer():
 @app.route("/sponsor", methods=["GET", "POST"])
 def sponsor():
     if "username" in session:
-        return render_template('sponsor.html')
+        sponsor=Sponsors.query.all()
+        return render_template('sponsor.html',sponsors=sponsor)
     else:
         return redirect('/login')
+
+
+
+@app.route("/spon_form", methods=["GET", "POST"])
+def spon_form():
+    return render_template('sponsor_form.html')

@@ -1,8 +1,33 @@
 {% extends 'layout.html' %}
 {% block body %}
-
-
-<h1>sponsor page</h1>
+<div class="sponsors">
+    <h2>Sponsors campaign</h2>
+    <div class="sponsors-cards">
+        {% for sponsor in sponsors %}
+        <div  class="sponsors-card">
+            <div  class="spon-card">
+                <h3>Company Name:- {{sponsor.company_name}}</h3>
+                <hr class="spon-hr">
+                <div class="card-mid">
+                    <p>Description:- {{sponsor.desc}}</p>
+                    <p>Budget:-- {{sponsor.budget}}</p>
+                </div>
+                <hr class="spon-hr">
+                <div class="card-bot">
+                    <button>{{sponsor.industry}}</button>
+                    <button>{{sponsor.start_date}}</button>
+                    <button>{{sponsor.end_date}}</button>
+                </div>
+                <hr class="spon-hr">
+                <div class="spon-btn">
+                    <button class="spon-sub"><a href="#">Contact Us</a></button>
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 
 {% endblock %}

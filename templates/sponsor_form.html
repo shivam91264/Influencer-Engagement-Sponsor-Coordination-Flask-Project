@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+
+<div class="sponsor-form">
+    <h1>Sponsor Contact Form</h1>
+    <form action="/sponsor_form" method="post">
+        <div class="spon-form">
+            <div class="spon-form-list">
+                <label for="company">Company Name</label>
+                <input type="text" id="company" name="company" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="desc">Description</label>
+                <input type="text" id="desc" name="desc" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="industry">Industry</label>
+                <input type="text" id="industry" name="industry" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="start-date">Start Date</label>
+                <input type="date" id="start-date" name="start-date" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="end-date">End Date</label>
+                <input type="date" id="end-date" name="end-date" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="budget">Budget</label>
+                <input type="string" id="budget" name="budget" required>
+            </div>
+            <input class="sponsor-form-btn" type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

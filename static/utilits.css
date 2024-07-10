@@ -197,6 +197,8 @@
     text-align: center;
     padding: 15px 0px;
     margin-top: 25px;
+    bottom: 0%;
+    position: relative;
     
 }
 
@@ -671,6 +673,62 @@
     border-radius: 5px;
 }
 
+/* sponsor-contact-form */
+
+.sponsor-form{
+    /* background-color: #007bff; */
+    min-height: 80vh;
+    max-width: 70vw;
+    margin: auto;
+    padding-top: 30px;
+}
+
+
+.spon-form {
+    width: 20vw;
+    margin: auto;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;    
+    gap: 8px;
+    margin-top: 40px;
+    
+}
+
+.spon-form-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.spon-form-list  label {
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+
+.spon-form-list input {
+    height: 27px;
+    width: 25vw;
+    border-radius: 5px;
+    font-weight: 550;
+    font-size: 15px;
+    
+}
+
+.sponsor-form-btn{
+    padding: 7px 0px;
+    width: 25vw;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.sponsor-form-btn:hover{
+    background-color: rgb(169, 167, 243);
+}
 
 /* contact-form */
 
@@ -716,7 +774,7 @@
 .sponsors {
     /*background-color: violet;*/
     width: 70vw;
-    height: 800px;
+    min-height: 100vh;
     margin: 0px auto;
 }
 
@@ -729,7 +787,7 @@
 .spon-card {
     background-color: rgb(115, 164, 239);
     width: 33vw;
-    height: 200px;
+    height: 260px;
     border-radius: 10px;
 }
 
@@ -776,7 +834,8 @@
 .sponsors-cards{
     padding-top: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 30px;
 }
 
@@ -801,6 +860,24 @@
 
 .spon-card:hover .card-btn1 {
     opacity: 1;
+}
+
+.spon-btn{
+/* justify-content: center; */
+/* align-items: center; */
+text-align: center;
+margin: 10px 0px;
+}
+
+.spon-sub{
+padding: 10px 30px;
+border-radius: 30px;
+cursor: pointer;
+}
+
+.spon-sub > a {
+    text-decoration: none;
+    font-weight: bold;
 }
 
 

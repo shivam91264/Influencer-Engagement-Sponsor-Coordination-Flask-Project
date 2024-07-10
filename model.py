@@ -11,3 +11,14 @@ class Register(db.Model):
     email = db.Column(db.String(),nullable=False)
     password = db.Column(db.String(),nullable=False)
     
+
+class Sponsors(db.Model):
+    sponsor_id = db.Column(db.Integer(),primary_key=True)
+    company_name = db.Column(db.String(),nullable=False)
+    desc = db.Column(db.String(),nullable=False)
+    industry = db.Column(db.String(),nullable=False)
+    start_date = db.Column(db.Date())
+    end_date = db.Column(db.Date())
+    budget = db.Column(db.Integer(),nullable=False)
+
+

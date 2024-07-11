@@ -8,6 +8,18 @@ from model import *
 
 @app.route("/", methods=["GET", "POST"])
 def register():
+
+    if 'username' in session:
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='admin':
+            return redirect('/admin')
+        elif user.role=='influencer':
+            return redirect('/influencer')
+        elif user.role=='sponsor':
+            return redirect('/sponsor')
+
+
+
     if request.method == "POST":
         username = request.form.get("username")
         email = request.form.get("email")
@@ -85,24 +97,47 @@ def log_out():
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     if "username" in session:
-        return render_template('admin.html')
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='admin':
+            return render_template('admin.html')
+        else:
+            return '<h1>Resticted Entry</h1>'
     else:
         return redirect('/login')
 
 @app.route("/influencer", methods=["GET", "POST"])
 def influencer():
     if "username" in session:
-        return render_template('influencer.html')
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='influencer':
+            return render_template('influencer.html')
+        else:
+            return '<h1>Resticted Entry</h1>'
     else:
         return redirect('/login')
+
+@app.route("/campaign", methods=["GET", "POST"])
+def campaign():
+    if "username" in session:
+        sponsor=Sponsors.query.all()
+        user=Register.query.filter_by(username=session['username']).first()
+        return render_template('campaign.html',sponsors=sponsor,role=user.role)
+    else:
+        return redirect('/login')
+
 
 @app.route("/sponsor", methods=["GET", "POST"])
 def sponsor():
     if "username" in session:
-        sponsor=Sponsors.query.all()
-        return render_template('sponsor.html',sponsors=sponsor)
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='sponsor':
+            return render_template('sponsor.html')
+        else:
+            return '<h1>Resticted Entry</h1>'
     else:
         return redirect('/login')
+
+
 
 
 

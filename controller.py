@@ -1,5 +1,6 @@
 from flask import render_template,request,redirect,session,flash,url_for
 from werkzeug.security import generate_password_hash , check_password_hash
+import datetime
 from main import *
 from model import *
 
@@ -143,4 +144,46 @@ def sponsor():
 
 @app.route("/spon_form", methods=["GET", "POST"])
 def spon_form():
-    return render_template('sponsor_form.html')
+    if "username" in session:
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='sponsor':     
+            try:
+                if request.method == 'POST':
+                    company_name = request.form.get('company_name')
+                    desc = request.form.get('desc')
+                    industry = request.form.get('industry')
+                    start_date = request.form.get('start_date')
+                    end_date = request.form.get('end_date')
+                    budget = request.form.get('budget')
+                    print(type(start_date))
+                    print(type(end_date))
+                    sponsor = Sponsors(company_name=company_name, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
+                    db.session.add(sponsor)
+                    db.session.commit()
+                    flash('Your card added successfully','success')
+                    return redirect('/campaign')
+            except Exception as e:
+                print(e)
+                return (f"error,{e}")
+            return render_template('sponsor_form.html')
+        else:
+            return 'Entry restricted'
+    else:
+        return redirect('/login')
+
+
+@app.route("/delete_campaign/<int:id>")
+def delete_camp(id):
+        if "username" in session:
+            user=Register.query.filter_by(username=session['username']).first()
+            if user.role=='sponsor' or user.role=='admin':     
+                Sponsors.query.filter_by(sponsor_id=id).delete()
+                db.session.commit()
+                flash('Card deleted successfully!!')
+                return redirect('/campaign')
+            else:
+                return 'Delete Restricted'
+        else:
+            return redirect ('/login')
+
+

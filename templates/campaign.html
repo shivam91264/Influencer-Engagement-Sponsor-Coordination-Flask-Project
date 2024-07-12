@@ -1,8 +1,12 @@
 {% extends 'layout.html' %}
 {% block body %}
 <div class="sponsors">
-    <h2>Sponsors campaign</h2>
-    <button class="spon-sub"><a href="/spon_form">Add Campaign</a></button>
+    <div class="spon-head">
+        <h2>Sponsors campaign</h2>
+        {% if role == "sponsor" %}
+        <button class="spon-sub"> <a href="/spon_form">Add Campaign</a></button>
+        {% endif %}
+    </div>
 
     <div class="sponsors-cards">
         {% for sponsor in sponsors %}
@@ -26,7 +30,7 @@
                     <button class="spon-sub"><a href="#">Contact Us</a></button>
                     {% else %}
                     <button class="spon-sub"><a href="#">Edit</a></button>
-                    <button class="spon-sub"><a href="#">Delete</a></button>
+                    <button class="spon-sub"><a href="/delete_campaign/{{sponsor.sponsor_id}}">Delete</a></button>
                     {% endif %}
                     <!-- <button class="spon-sub"><a href="#">Contact Us</a></button> -->
                 </div>

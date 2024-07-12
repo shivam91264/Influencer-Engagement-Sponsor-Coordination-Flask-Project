@@ -778,11 +778,19 @@
     margin: 0px auto;
 }
 
-.sponsors>h2 {
-    /*background-color: aquamarine;*/
+.spon-head{
+    /* background-color: #4CAF50; */
+    display: flex;
+    justify-content: space-between;
     padding: 20px 0px;
+    padding-right: 40px;
+}
+
+.sponsors> .spon-head>h2 {
     font-size: 35px;
 }
+
+
 
 .spon-card {
     background-color: rgb(115, 164, 239);

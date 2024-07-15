@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+
+<div class="sponsor-form">
+    <h1>Create Your Influencer Profile</h1>
+    <form action="/influ_form" method="post" enctype="multipart/form-data">
+        <div class="spon-form">
+            <div class="spon-form-list">
+                <label for="img">Choose an image:</label>
+                <input type="file" id="img" name="img">
+            </div>
+            <div class="spon-form-list">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="niche">Niche</label>
+                <input type="text" id="niche" name="niche" required>
+            </div>
+            <div class="spon-form-list">
+                <label for="reach">Reach</label>
+                <input type="text" id="reach" name="reach" required>
+            </div>
+            <input class="sponsor-form-btn" type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

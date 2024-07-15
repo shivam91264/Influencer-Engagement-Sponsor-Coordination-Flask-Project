@@ -1,8 +1,9 @@
-from flask import render_template,request,redirect,session,flash,url_for
+from flask import render_template,request,redirect,session,flash,url_for,send_file
 from werkzeug.security import generate_password_hash , check_password_hash
 import datetime
 from main import *
 from model import *
+from io import BytesIO
 
 
 
@@ -109,9 +110,10 @@ def admin():
 @app.route("/influencer", methods=["GET", "POST"])
 def influencer():
     if "username" in session:
+        influencer=Influencers.query.all()
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='influencer':
-            return render_template('influencer.html')
+            return render_template('influencer.html',influencers=influencer,role=user.role)
         else:
             return '<h1>Resticted Entry</h1>'
     else:
@@ -170,6 +172,44 @@ def spon_form():
             return 'Entry restricted'
     else:
         return redirect('/login')
+    
+
+@app.route("/influ_form", methods=["GET", "POST"])
+def influ_form():
+    if "username" in session:
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='influencer':     
+            try:
+                if request.method == 'POST':
+                    img=request.files['img']
+                    if not img:
+                        return 'img not uploaded'
+                    name = request.form.get('name')
+                    category = request.form.get('category')
+                    niche = request.form.get('niche')
+                    reach = request.form.get('reach')
+                    influencer = Influencers(img=img.read(),name=name, category=category, niche=niche, reach=reach)
+                    db.session.add(influencer)
+                    db.session.commit()
+                    flash('Your card added successfully','success')
+                    return redirect('/campaign')
+            except Exception as e:
+                print(e)
+                return (f"error,{e}")
+            return render_template('influencer_form.html')
+        else:
+            return 'Entry restricted'
+    else:
+        return redirect('/login')
+
+
+@app.route('/image/<int:image_id>')
+def get_image(image_id):
+    image = Influencers.query.filter_by(influencer_id = image_id).first()
+    if not image:
+        return 'Image not found', 404
+    return send_file(BytesIO(image.img), mimetype='image/jpeg')
+    # return send_file(BytesIO(image.img), download_name=image.name, mimetype='image/jpeg')
 
 
 @app.route("/delete_campaign/<int:id>")

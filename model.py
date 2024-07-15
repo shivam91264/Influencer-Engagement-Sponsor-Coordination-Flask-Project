@@ -22,3 +22,10 @@ class Sponsors(db.Model):
     budget = db.Column(db.Integer(),nullable=False)
 
 
+class Influencers(db.Model):
+    influencer_id = db.Column(db.Integer(),primary_key=True)
+    img = db.Column(db.LargeBinary,nullable=False)
+    name = db.Column(db.String(), nullable=False)
+    category = db.Column(db.String(), nullable=False)
+    niche = db.Column(db.String(),nullable=False)
+    reach = db.Column(db.String(),nullable=False)

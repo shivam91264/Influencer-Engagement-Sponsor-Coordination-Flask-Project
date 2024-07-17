@@ -40,7 +40,7 @@ def register():
                 session['username']=username
                 flash('You were registered successfully!','success')
                 if role == 'influencer':
-                    return redirect('/influencer')
+                    return redirect('/influ_form')
                 else:
                     return redirect('/sponsor')
             except Exception as e:
@@ -95,6 +95,12 @@ def log_out():
     else:
         return redirect('/login')
     
+
+@app.route('/home',methods=["GET", "POST"])
+def home():
+    return render_template('home.html')   
+
+
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
@@ -157,8 +163,6 @@ def spon_form():
                     start_date = request.form.get('start_date')
                     end_date = request.form.get('end_date')
                     budget = request.form.get('budget')
-                    print(type(start_date))
-                    print(type(end_date))
                     sponsor = Sponsors(company_name=company_name, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
                     db.session.add(sponsor)
                     db.session.commit()
@@ -223,6 +227,31 @@ def delete_camp(id):
                 return redirect('/campaign')
             else:
                 return 'Delete Restricted'
+        else:
+            return redirect ('/login')
+
+
+@app.route("/edit_form/<int:id>",methods=["GET", "POST"])
+def edit_camp(id):
+        if "username" in session:
+            user=Register.query.filter_by(username=session['username']).first()
+            if user.role=='sponsor' or user.role=='admin':
+                if request.method=='GET':     
+                    campaign=Sponsors.query.filter_by(sponsor_id=id).first()
+                    return render_template('edit_campaign.html',campaign=campaign)
+                elif request.method=='POST':
+                    campaign=Sponsors.query.filter_by(sponsor_id=id).first()
+                    campaign.company_name = request.form.get('company_name')
+                    campaign.desc = request.form.get('desc')
+                    campaign.industry = request.form.get('industry')
+                    campaign.start_date=datetime.date.fromisoformat(request.form.get('start_date'))
+                    campaign.end_date=datetime.date.fromisoformat(request.form.get('end_date'))
+                    campaign.budget = request.form.get('budget')
+                    db.session.commit()
+                    flash('Your card updated successfully','success')
+                    return redirect('/campaign')
+            else:
+                return 'Edit Restricted'
         else:
             return redirect ('/login')
 

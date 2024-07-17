@@ -12,16 +12,17 @@
         <div class="influe-cards-1">
 
             <div class="influe-card font-color1">
+                <img width="320px" src="{{ url_for('get_image',  image_id=influencer.influencer_id) }}" alt="img">
+
                 <div class="desc">
-                    <img src="{{ url_for('get_image',  image_id=influencer.influencer_id) }}" alt="img">
-                    <h2>Name:- {{influencer.name}}</h2>
-                    <p>Category:- {{influencer.category}}</p>
-                    <p>Niche:- {{influencer.niche}}</p>
-                    <p>Reach:- {{influencer.reach}}</p>
+                    <h2> {{influencer.name}}</h2>
+                    <p> {{influencer.category}}</p>
+                    <p> {{influencer.niche}}</p>
+                    <p> {{influencer.reach}}</p>
                 </div>
                 <hr class="spon-hr">
-                <div class="spon-btn">
-                    <button class="spon-sub" ><a href="#">Contact Me</a></button>
+                <div class="spon-btn ">
+                    <button class="spon-sub btn-hoco" ><a href="#">Contact Me</a></button>
                 </div>
 
             </div>

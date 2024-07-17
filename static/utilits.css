@@ -79,10 +79,10 @@
 
 /* home.html */
 
-* {
+/* * {
     margin: 0;
     padding: 0;
-}
+} */
 
 .nav-bar {
     background-color: black;
@@ -206,43 +206,6 @@
 
 /* influencers.html */
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.nav-bar {
-    background-color: black;
-    display: flex;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-}
-
-.left-nav {
-    width: 50%;
-}
-
-.right-nav>ul {
-    display: flex;
-    flex-direction: row;
-    gap: 60px;
-}
-
-.right-nav>ul>li {
-    list-style: none;
-}
-
-.right-nav>ul>li>a {
-    text-decoration: none;
-    color: white;
-}
-
-.nav-btn {
-    padding: 6px 12px;
-    border-radius: 5px;
-}
 
 /*content*/
 
@@ -262,10 +225,7 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
-    /*background-color: blueviolet;*/
-
-    align-items: center;
-
+    /* align-items: center; */
 }
 
 .influe-cards-1 {
@@ -273,52 +233,16 @@
     display: flex;
     flex-direction: row;
     margin: 0px auto;
-    /*background-color: aqua;*/
-    gap: 45px;
+     gap: 45px;
 
 }
 
-/* .influe-card {
-    background-color: #e20046;
-    color: black;
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-} */
 
-.influe-card>img {
-    border-radius: 10px;
 
+
+.influe-card:hover {
+    transform: translateY(2px);
 }
-
-.influe-card>.desc {
-    padding: 10px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-/* .influe-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-bottom: 25px;
-    border-radius: 10px;
-    cursor: pointer;
-} */
-
-.horizontal-line {
-    background-color: black;
-    height: 2px;
-    width: 80%;
-    margin: auto;
-    border-radius: 10px;
-}
-
-
-
 
 .sec h2 {
     text-align: center;
@@ -365,71 +289,9 @@
 }
 
 
-/*card-btn*/
-/* .card-btn1 {
-    position: absolute;
-    left: 35%;
-    top: 30%;
-    padding: 15px 30px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    opacity: 0;
-    font-size: 16px;
-} */
-
-.influe-card:hover {
-    transform: translateY(2px);
-}
-/* 
-.influe-card:hover .card-btn1 {
-    opacity: 1;
-} */
-
 
 
 /* search.html */
-
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.nav-bar {
-    background-color: black;
-    display: flex;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-}
-
-.left-nav {
-    width: 50%;
-}
-
-.right-nav>ul {
-    display: flex;
-    flex-direction: row;
-    gap: 60px;
-}
-
-.right-nav>ul>li {
-    list-style: none;
-}
-
-.right-nav>ul>li>a {
-    text-decoration: none;
-    color: white;
-}
-
-.nav-btn {
-    padding: 6px 12px;
-    border-radius: 5px;
-}
 
 /*Search*/
 .search {
@@ -459,9 +321,9 @@
 .influe-cards {
     display: flex;
     flex-direction: row;
-    gap: 25px;
+    gap:35px;
     /* background-color: blueviolet; */
-    width: 70vw;
+    width: 75vw;
     /* justify-content: space-between; */
     /* justify-content: center */
     margin: auto;
@@ -473,23 +335,18 @@
 
 .influe-cards-1 {
     /* width: 40%; */
-    width: 400px;
+    width: 320px;
     display: flex;
-    flex-direction: row;
-    /* margin: 0px auto; */
-    /* background-color: aqua; */
-    /* gap: 45px; */
-    /* justify-content: space-between; */
-    /* flex-wrap: wrap; */
-
+    /* flex-direction: row; */
 }
 
+
 .influe-card {
-    background-color: rgb(99, 210, 210);
+    /* color: #d8265e; */
     /* flex-wrap: wrap; */
-    /* background-color: #e20046; */
+    background-color: #00CCCC;
     color: black;
-    width: 400px;
+    width: 320px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -503,107 +360,15 @@
 }
 
 .influe-card>.desc {
-    padding: 10px 10px;
+    padding: 0px 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    /* font-size: large; */
 }
-/* 
-.influe-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-bottom: 25px;
-    border-radius: 10px;
-    cursor: pointer;
-} */
-
-/*card-btn*/
-
-/* .card-btn1 {
-    position: absolute;
-    left: 21%;
-    top: 40%;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    opacity: 0;
-
-}
-
-.influe-card:hover .card-btn1 {
-    opacity: 1;
-    visibility: visible;
-} */
-
-
-
-/*card-btn*/
-/* .card-btn1 {
-    position: absolute;
-    left: 35%;
-    top: 30%;
-    padding: 15px 30px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    opacity: 0;
-    font-size: 16px;
-} */
-
-/* .influe-card:hover {
-    transform: translateY(2px);
-} */
-/* 
-.influe-card:hover .card-btn1 {
-    opacity: 1;
-} */
-
 
 
 /* join_form.html */
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.nav-bar {
-    background-color: black;
-    display: flex;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-}
-
-.left-nav {
-    width: 50%;
-}
-
-.right-nav>ul {
-    display: flex;
-    flex-direction: row;
-    gap: 60px;
-}
-
-.right-nav>ul>li {
-    list-style: none;
-}
-
-.right-nav>ul>li>a {
-    text-decoration: none;
-    color: white;
-}
-
-.nav-btn {
-    padding: 6px 12px;
-    border-radius: 5px;
-}
 
 
 /* contact-form */
@@ -644,44 +409,6 @@
 
 
 /* contact.html */
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.nav-bar {
-    background-color: black;
-    display: flex;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-}
-
-.left-nav {
-    width: 50%;
-}
-
-.right-nav>ul {
-    display: flex;
-    flex-direction: row;
-    gap: 60px;
-}
-
-.right-nav>ul>li {
-    list-style: none;
-}
-
-.right-nav>ul>li>a {
-    text-decoration: none;
-    color: white;
-}
-
-.nav-btn {
-    padding: 6px 12px;
-    border-radius: 5px;
-}
 
 /* sponsor-contact-form */
 
@@ -942,5 +669,10 @@ cursor: pointer;
     color: #fff;
     font-size: 20px;
     cursor: pointer;
+}
+
+.btn-hoco:hover{
+    /* background-color: rgb(200, 200, 218); */
+    background-color: #d8cece;
 }
 

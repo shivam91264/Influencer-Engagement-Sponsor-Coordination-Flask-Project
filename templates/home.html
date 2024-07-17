@@ -1,0 +1,46 @@
+
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="content">
+    <div class="left-content">
+        <h1>Welcome to Our influencer marketing services</h1>
+        <h2>We are the influencer marketing experts.</h2>
+        <p>Elevate your brand with our seasoned influencer marketing experts. Our team excels in creating impactful
+            campaigns that resonate with your target audience. Leveraging deep industry insights and strategic
+            partnerships, we connect you with the right influencers to amplify your message authentically. From
+            micro-influencers to global stars, we ensure your brand gains visibility, trust, and engagement. Let us
+            transform your marketing strategy with data-driven approaches and creative storytelling. Partner with us
+            to harness the power of influencer marketing and achieve unparalleled growth.</p>
+        <!-- <button class="main-btn">Contact Us</button> -->
+    </div>
+    <div class="right-content"><img width="300px" src="{{ url_for('static', filename='img/home-1.jpg') }}" alt="img">
+    </div>
+</div>
+<hr class="horizontal-line">
+<div class="our-expertise">
+    <h2>Our Expertise</h2>
+
+    <div class="cards">
+        <div class="card">
+            <img width="320px" src="{{ url_for('static', filename='img/img-1.jpg') }}" alt="img">
+            <h2>Influencer marketing strategies</h2>
+            <p>We develop innovative influencer marketing strategies with long-term potential, and influencers at
+                their
+                core. </p>
+        </div>
+        <div class="card">
+            <img width="320px" src="{{ url_for('static', filename='img/img-3.jpg') }}" alt="img">
+            <h2>Influencer matchmaking</h2>
+            <p>For every brand there’s a perfect influencer and we always know where to find them. We connect you
+                with influencers who get people talking, and acting. </p>
+        </div>
+        <div class="card">
+            <img width="320px" src="{{ url_for('static', filename='img/img-2.jpg') }}" alt="img">
+            <h2>Content strategies</h2>
+            <p>Our content strategies give influencers the freedom to be authentic on the platforms where they have
+                most power. It’s not advertising - it’s storytelling.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="profile">
+    <h1>User Profile</h1>
+
+    <div class="profile-con">
+        <div class="left-con">
+            <div class="influ-profile">
+                <img width="320px" src="{{ url_for('get_image', image_id=influencer.user_id) }}" alt="Description of the image">
+                <div class="left-con-desc">
+                    <h2>{{ influencer.name }}</h2>
+                    <h2>{{ influencer.category }}</h2>
+                    <h2>{{ influencer.niche }}</h2>
+                    <h2>{{ influencer.reach }}</h2>
+                    <button style="width: 18vw;" class="btn">Edit</button>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="right-con">
+            <div class="campaigns">
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">ASHISH CHANCHALANI</p>
+                        <p class="para">25000 Rs</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn">Accept</button>
+                        <button class="btn">Reject</button>
+                        <button class="btn">Renogotiate</button>
+                    </div>
+                </div>
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">ASHISH CHANCHALANI</p>
+                        <p class="para">25000 Rs</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn">Accept</button>
+                        <button class="btn">Reject</button>
+                        <button class="btn">Renogotiate</button>
+                    </div>
+                </div>
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">ASHISH CHANCHALANI</p>
+                        <p class="para">25000 Rs</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn">Accept</button>
+                        <button class="btn">Reject</button>
+                        <button class="btn">Renogotiate</button>
+                    </div>
+                </div>
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">ASHISH CHANCHALANI</p>
+                        <p class="para">25000 Rs</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn">Accept</button>
+                        <button class="btn">Reject</button>
+                        <button class="btn">Renogotiate</button>
+                    </div>
+                </div>
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">ASHISH CHANCHALANI</p>
+                        <p class="para">25000 Rs</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn">Accept</button>
+                        <button class="btn">Reject</button>
+                        <button class="btn">Renogotiate</button>
+                    </div>
+                </div>
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">ASHISH CHANCHALANI</p>
+                        <p class="para">25000 Rs</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn">Accept</button>
+                        <button class="btn">Reject</button>
+                        <button class="btn">Renogotiate</button>
+                    </div>
+                </div>
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">ASHISH CHANCHALANI</p>
+                        <p class="para">25000 Rs</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn">Accept</button>
+                        <button class="btn">Reject</button>
+                        <button class="btn">Renogotiate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -18,8 +18,13 @@
         <div class="right-nav">
             <ul>
                 <li><a href="/home">Home</a></li>
+                {% if role == "influencer" %}
+                <li><a href="/influencer_profile">profile</a></li>
+
+                {% else %}
+                <li><a href="/sponsor_profile">profile</a></li>
                 <li><a href="/influencer">Influencers</a></li>
-                <li><a href="/sponsor">Sponsors</a></li>
+                {% endif %}
                 <li><a href="/campaign">Campaign</a></li>
                 <button class="nav-btn"> <a href="/logout">Log Out</a> </button>
 

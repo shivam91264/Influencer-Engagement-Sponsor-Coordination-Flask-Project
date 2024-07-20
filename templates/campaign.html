@@ -4,7 +4,7 @@
     <div class="spon-head">
         <h2>Sponsors campaign</h2>
         {% if role == "sponsor" %}
-        <button class="spon-sub"> <a href="/spon_form">Add Campaign</a></button>
+        <button class="spon-sub"> <a href="/add_campaign">Add Campaign</a></button>
         {% endif %}
     </div>
 
@@ -27,9 +27,9 @@
                 <hr class="spon-hr">
                 <div class="spon-btn">
                     {% if role == "influencer" %}
-                    <button class="spon-sub"><a href="#">Contact Us</a></button>
+                    <button class="spon-sub"><a href="/contact_campaign">Contact Us</a></button>
                     {% else %}
-                    <button class="spon-sub"><a href="/edit_form/{{sponsor.sponsor_id}}">Edit</a></button>
+                    <button class="spon-sub"><a href="/edit_campaign/{{sponsor.sponsor_id}}">Edit</a></button>
                     <button class="spon-sub"><a href="/delete_campaign/{{sponsor.sponsor_id}}">Delete</a></button>
                     {% endif %}
                     <!-- <button class="spon-sub"><a href="#">Contact Us</a></button> -->

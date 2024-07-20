@@ -12,7 +12,7 @@ class Register(db.Model):
     password = db.Column(db.String(),nullable=False)
     
 
-class Sponsors(db.Model):
+class Campaign(db.Model):
     sponsor_id = db.Column(db.Integer(),primary_key=True)
     user_id = db.Column(db.Integer(),nullable=False)
     company_name = db.Column(db.String(),nullable=False)
@@ -31,3 +31,12 @@ class Influencers(db.Model):
     category = db.Column(db.String(), nullable=False)
     niche = db.Column(db.String(),nullable=False)
     reach = db.Column(db.String(),nullable=False)
+
+
+class Sponsors(db.Model):
+    sponsor_id = db.Column(db.Integer(),primary_key=True)
+    user_id = db.Column(db.Integer(),nullable=False)
+    img = db.Column(db.LargeBinary,nullable=False)
+    company_name = db.Column(db.String(),nullable=False)
+    desc = db.Column(db.String(),nullable=False)
+    industry = db.Column(db.String(),nullable=False)

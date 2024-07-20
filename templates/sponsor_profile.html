@@ -7,17 +7,14 @@
     <div class="profile-con">
         <div class="left-con">
             <div class="influ-profile">
+                <img width="320px" src="{{ url_for('get_image1', image_id=sponsor.sponsor_id) }}" alt="image">
                 <div class="left-con-desc">
                     <h2>{{ sponsor.company_name }}</h2>
                     <h2>{{ sponsor.desc }}</h2>
-                    <h2>{{ sponsor.budget }}</h2>
                     <h2>{{ sponsor.industry }}</h2>
-                    <div class="camp-date">
-                        <p class="camp-para">{{ sponsor.start_date }}</p>
-                        <p class="camp-para">{{ sponsor.end_date }}</p>
-                    </div>
-                    <button class="btn"><a href="/edit_form/{{sponsor.sponsor_id}}">Edit</a></button>
+                    <button style="width: 18vw;" class="btn"><a href="/edit_sponsor/{{sponsor.sponsor_id}}">Edit</a></button>
                 </div>
+
             </div>
 
         </div>

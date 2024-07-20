@@ -20,8 +20,6 @@ def register():
         elif user.role=='sponsor':
             return redirect('/sponsor')
 
-
-
     if request.method == "POST":
         username = request.form.get("username")
         email = request.form.get("email")
@@ -40,9 +38,9 @@ def register():
                 session['username']=username
                 flash('You were registered successfully!','success')
                 if role == 'influencer':
-                    return redirect('/influ_form')
+                    return redirect('/influencer_form')
                 else:
-                    return redirect('/campaign')
+                    return redirect('/sponsor_form')
             except Exception as e:
                 print(e)
 
@@ -132,7 +130,7 @@ def influencer():
 @app.route("/campaign", methods=["GET"])
 def campaign():
     if "username" in session:
-        sponsor=Sponsors.query.all()
+        sponsor=Campaign.query.all()
         user=Register.query.filter_by(username=session['username']).first()
         return render_template('campaign.html',sponsors=sponsor,role=user.role)
     else:
@@ -154,8 +152,8 @@ def campaign():
 
 
 
-@app.route("/spon_form", methods=["GET", "POST"])
-def spon_form():
+@app.route("/add_campaign", methods=["GET", "POST"])
+def campaign_add():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='sponsor':     
@@ -168,23 +166,23 @@ def spon_form():
                     start_date = request.form.get('start_date')
                     end_date = request.form.get('end_date')
                     budget = request.form.get('budget')
-                    sponsor = Sponsors(company_name=company_name,user_id=user_id, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
+                    sponsor = Campaign(company_name=company_name,user_id=user_id, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
                     db.session.add(sponsor)
                     db.session.commit()
-                    flash('Your card added successfully','success')
+                    flash('Campaign added successfully','success')
                     return redirect('/campaign')
             except Exception as e:
                 print(e)
                 return (f"error,{e}")
-            return render_template('sponsor_form.html',role=user.role)
+            return render_template('campaign_form.html',role=user.role)
         else:
             return 'Entry restricted'
     else:
         return redirect('/login')
     
 
-@app.route("/influ_form", methods=["GET", "POST"])
-def influ_form():
+@app.route("/influencer_form", methods=["GET", "POST"])
+def influencer_form():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='influencer':     
@@ -201,12 +199,41 @@ def influ_form():
                     influencer = Influencers(img=img.read(),user_id=user_id,name=name, category=category, niche=niche, reach=reach)
                     db.session.add(influencer)
                     db.session.commit()
-                    flash('Your card added successfully','success')
-                    return redirect('/campaign')
+                    flash('Profile Created successfully','success')
+                    return redirect('/influencer_profile')
             except Exception as e:
                 print(e)
                 return (f"error,{e}")
             return render_template('influencer_form.html',role=user.role)
+        else:
+            return 'Entry restricted'
+    else:
+        return redirect('/login')
+    
+
+@app.route("/sponsor_form", methods=["GET", "POST"])
+def sponsor_form():
+    if "username" in session:
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='sponsor':     
+            try:
+                if request.method == 'POST':
+                    img=request.files['img']
+                    if not img:
+                        return 'img not uploaded'
+                    user_id=user.id
+                    company_name = request.form.get('company_name')
+                    desc = request.form.get('desc')
+                    industry = request.form.get('industry')
+                    sponsor = Sponsors(img=img.read(),user_id=user_id,company_name=company_name, desc=desc, industry=industry)
+                    db.session.add(sponsor)
+                    db.session.commit()
+                    flash('Profile Created successfully','success')
+                    return redirect('/sponsor_profile')
+            except Exception as e:
+                print(e)
+                return (f"error,{e}")
+            return render_template('sponsor_form.html',role=user.role)
         else:
             return 'Entry restricted'
     else:
@@ -220,13 +247,20 @@ def get_image(image_id):
         return 'Image not found', 404
     return send_file(BytesIO(image.img), mimetype='image/jpeg')
 
+@app.route('/image1/<int:image_id>')
+def get_image1(image_id):
+    image = Sponsors.query.filter_by(sponsor_id = image_id).first()
+    if not image:
+        return 'Image not found', 404
+    return send_file(BytesIO(image.img), mimetype='image/jpeg')
+
 
 @app.route("/delete_campaign/<int:id>")
 def delete_camp(id):
         if "username" in session:
             user=Register.query.filter_by(username=session['username']).first()
             if user.role=='sponsor' or user.role=='admin':     
-                Sponsors.query.filter_by(sponsor_id=id).delete()
+                Campaign.query.filter_by(sponsor_id=id).delete()
                 db.session.commit()
                 flash('Card deleted successfully!!')
                 return redirect('/campaign')
@@ -236,16 +270,16 @@ def delete_camp(id):
             return redirect ('/login')
 
 
-@app.route("/edit_form/<int:id>",methods=["GET", "POST"]) # This route handle both GET and POST request and id in url get as an integer and passed to function edit_camp 
-def edit_camp(id):
+@app.route("/edit_campaign/<int:id>",methods=["GET", "POST"]) # This route handle both GET and POST request and id in url get as an integer and passed to function edit_camp 
+def edit_campaign(id):
         if "username" in session:  # This line check  username key present in session or not 
             user=Register.query.filter_by(username=session['username']).first()  # This line check records from register table based on username present in session and store it in user variable
             if user.role=='sponsor' or user.role=='admin': # it will check if user role is sponsor or admin
                 if request.method=='GET':     
-                    campaign=Sponsors.query.filter_by(sponsor_id=id).first() # this line check data from sponnsor table and store it in campaign  varibale
+                    campaign=Campaign.query.filter_by(sponsor_id=id).first() # this line check data from sponnsor table and store it in campaign  varibale
                     return render_template('edit_campaign.html',campaign=campaign,role=user.role) # this line pass the campaign data to edit_campaign page
                 elif request.method=='POST':
-                    campaign=Sponsors.query.filter_by(sponsor_id=id).first()
+                    campaign=Campaign.query.filter_by(sponsor_id=id).first()
                     campaign.company_name = request.form.get('company_name')
                     campaign.desc = request.form.get('desc')
                     campaign.industry = request.form.get('industry')
@@ -262,11 +296,11 @@ def edit_camp(id):
         
 
 
-@app.route("/influ_edit_form/<int:id>",methods=["GET", "POST"])
-def edit_influ(id):
+@app.route("/edit_influencer/<int:id>",methods=["GET", "POST"])
+def edit_influencer(id):
         if "username" in session:
             user=Register.query.filter_by(username=session['username']).first()
-            if user.role=='influencer' or user.role=='admin':
+            if user.role=='influencer':
                 if request.method=='GET':     
                     influencer=Influencers.query.filter_by(influencer_id=id).first()
                     return render_template('edit_influencer.html',influencer=influencer,role=user.role)
@@ -280,8 +314,32 @@ def edit_influ(id):
                     influencer.niche = request.form.get('niche')
                     influencer.reach = request.form.get('reach')
                     db.session.commit()
-                    flash('Your card updated successfully','success')
-                    return redirect('/influencer')
+                    flash('Profile updated successfully','success')
+                    return redirect('/influencer_profile')
+            else:
+                return 'Edit Restricted'
+        else:
+            return redirect ('/login')
+        
+@app.route("/edit_sponsor/<int:id>",methods=["GET", "POST"])
+def edit_sponsor(id):
+        if "username" in session:
+            user=Register.query.filter_by(username=session['username']).first()
+            if user.role=='sponsor':
+                if request.method=='GET':     
+                    sponsor=Sponsors.query.filter_by(sponsor_id=id).first()
+                    return render_template('edit_sponsor.html',sponsor=sponsor,role=user.role)
+                elif request.method=='POST':
+                    sponsor=Sponsors.query.filter_by(sponsor_id=id).first()
+                    if 'img' in request.files and request.files['img'].filename != '':
+                        image = request.files['img']
+                        sponsor.img = image.read()
+                    sponsor.company_name = request.form.get('company_name')
+                    sponsor.desc = request.form.get('desc')
+                    sponsor.industry = request.form.get('industry')
+                    db.session.commit()
+                    flash('Profile updated successfully','success')
+                    return redirect('/sponsor_profile')
             else:
                 return 'Edit Restricted'
         else:
@@ -296,14 +354,13 @@ def influ_profile():
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='influencer':
             influencer=Influencers.query.filter_by(user_id=user.id).first()
-            
             return render_template('influencer_profile.html',influencer=influencer,role=user.role)
     return redirect('/login')
 
 
 
 @app.route("/sponsor_profile")
-def camp_profile():
+def sponsor_profile():
     if 'username' in session:
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='sponsor':
@@ -312,10 +369,11 @@ def camp_profile():
     return redirect('/login')
 
 
-@app.route('/influ_contact')
-def influ_contact():
+@app.route('/contact_influencer')
+def contact_influencer():
     return render_template('/contact_influencer.html')
 
-@app.route('/spon_contact')
-def spon_contact():
-    return render_template('/contact_sponsor.html')
+@app.route('/contact_campaign')
+def contact_campaign():
+    return render_template('/contact_campaign.html')
+

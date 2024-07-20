@@ -3,32 +3,24 @@
 
 
 <div class="sponsor-form">
-    <h1>Sponsor Contact Form</h1>
-    <form action="/spon_form" method="post">
+    <h1>Create Your Sponsor Profile</h1>
+    <form action="/sponsor_form" method="post" enctype="multipart/form-data">
         <div class="spon-form">
             <div class="spon-form-list">
-                <label for="company_name">Company Name</label>
-                <input type="text" id="company_name" name="company_name" required>
+                <label for="img">Choose an image:</label>
+                <input type="file" id="img" name="img">
             </div>
             <div class="spon-form-list">
-                <label for="desc">Description</label>
-                <input type="text" id="desc" name="desc" required>
+                <label for="company_name">Campony Name</label>
+                <input type="text" id="company_name" name="company_name" required>
             </div>
             <div class="spon-form-list">
                 <label for="industry">Industry</label>
                 <input type="text" id="industry" name="industry" required>
             </div>
             <div class="spon-form-list">
-                <label for="start_date">Start Date</label>
-                <input type="date" id="start_date" name="start_date" required>
-            </div>
-            <div class="spon-form-list">
-                <label for="end_date">End Date</label>
-                <input type="date" id="end_date" name="end_date" required>
-            </div>
-            <div class="spon-form-list">
-                <label for="budget">Budget</label>
-                <input type="integer" id="budget" name="budget" required>
+                <label for="desc">Desc</label>
+                <input type="text" id="desc" name="desc" required>
             </div>
             <input class="sponsor-form-btn" type="submit" value="Submit">
         </div>

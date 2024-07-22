@@ -1,32 +1,38 @@
 {% extends 'layout.html' %}
 {% block body %}
+<div class="login">
+    <h2>Add Request</h2>
 
-<main>
-    <div class="main-content">
-        <h2>Fill The Form For Sponsor</h2>
-        <div class="contact-form">
-            <div class="form-box">
-                <input type="text" placeholder="Enter Company Name">
+
+    <form action="/coontact_influencer" method="POST">
+        <div class="form">
+            <div class="form-list">
+                <select name="options" class="role">
+                    {% for influencer in influencers %}
+                    <option value="influencer">{{influencer.username}}</option>   
+                    {% endfor %}             
+                </select>
             </div>
-            <div class="form-box">
-                <input type="text" placeholder="Enter Industry Type">
+            <div class="form-list">
+                <label for="messages">Message</label>
+                <input type="String" id="messages" name="messages" required>
             </div>
-            <div class="form-box">
-                <input type="text" placeholder="Platform Where Advertise ">
+            <div class="form-list">
+                <label for="requirements">Requirements</label>
+                <input type="String" id="requirements" name="requirements" required>
             </div>
-            <div class="form-box">
-                <input type="text" placeholder="Enter Email Id">
+            <div class="form-list">
+                <label for="payment_amount">Payment Amount</label>
+                <input type="String" id="payment_amount" name="payment_amount" required>
             </div>
-            <div class="form-box">
-                <input type="text" placeholder="Budget Of sponsor">
+            <div class="form-list">
+                <label for="status">Status</label>
+                <input type="String" id="status" name="status" required>
             </div>
-            <div class="form-box">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Desc..."></textarea>
-            </div>
-            <div class="form-box">
-                <button class="contact-btn">Submit</button>
-            </div>
+            <button class="btn" type="submit" value="submit">Submit</button>
         </div>
-    </div>
-</main>
+
+    </form>
+</div>
+
 {% endblock %}

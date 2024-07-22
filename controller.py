@@ -130,9 +130,12 @@ def influencer():
 @app.route("/campaign", methods=["GET"])
 def campaign():
     if "username" in session:
-        sponsor=Campaign.query.all()
         user=Register.query.filter_by(username=session['username']).first()
-        return render_template('campaign.html',sponsors=sponsor,role=user.role)
+        if user.role=='sponsor':
+            campaign=Campaign.query.filter_by(user_id=user.id)
+        else:
+            campaign=Campaign.query.all()
+        return render_template('campaign.html',campaigns=campaign,role=user.role)
     else:
         return redirect('/login')
 
@@ -359,6 +362,7 @@ def influ_profile():
 
 
 
+
 @app.route("/sponsor_profile")
 def sponsor_profile():
     if 'username' in session:
@@ -369,9 +373,64 @@ def sponsor_profile():
     return redirect('/login')
 
 
-@app.route('/contact_influencer')
+
+# @app.route("/add_campaign", methods=["GET", "POST"])
+# def campaign_add():
+#     if "username" in session:
+#         user=Register.query.filter_by(username=session['username']).first()
+#         if user.role=='sponsor':     
+#             try:
+#                 if request.method == 'POST':
+#                     user_id = user.id
+#                     company_name = request.form.get('company_name')
+#                     desc = request.form.get('desc')
+#                     industry = request.form.get('industry')
+#                     start_date = request.form.get('start_date')
+#                     end_date = request.form.get('end_date')
+#                     budget = request.form.get('budget')
+#                     sponsor = Campaign(company_name=company_name,user_id=user_id, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
+#                     db.session.add(sponsor)
+#                     db.session.commit()
+#                     flash('Campaign added successfully','success')
+#                     return redirect('/campaign')
+#             except Exception as e:
+#                 print(e)
+#                 return (f"error,{e}")
+#             return render_template('campaign_form.html',role=user.role)
+#         else:
+#             return 'Entry restricted'
+#     else:
+#         return redirect('/login')
+
+@app.route('/contact_influencer',methods=["GET", "POST"])
 def contact_influencer():
-    return render_template('/contact_influencer.html')
+    if 'username' in session:
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='sponsor':
+            
+            try:
+                if request.method=='POST':
+                    messages = request.form.get('messages')
+                    requirements = request.form.get('requirements')
+                    payment_amount = request.form.get('payment_amount')
+                    status = request.form.get('status')
+                    influencer_request=add_request(messages=messages,requirements=requirements, payment_amount=payment_amount,status=status)
+                    db.session.add(influencer_request)
+                    db.session.commit()
+                    flash('Profile updated successfully','success')
+                    return redirect('/influencer')
+            except Exception as e:
+                print(e)
+                return (f"error,{e}")
+            query_influencers=Register.query.filter_by(role='influencer')
+            return render_template('contact_influencer.html',influencers=query_influencers)
+
+        else:
+            return 'Edit Restricted'
+    else:
+        return redirect('/login')        
+    # return render_template('/contact_influencer.html')
+
 
 @app.route('/contact_campaign')
 def contact_campaign():

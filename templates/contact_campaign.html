@@ -1,34 +1,34 @@
 {% extends 'layout.html' %}
 {% block body %}
-
-<main>
-    <div class="main-content">
-        <h2>Fill The Form For Advertise</h2>
-        <form action="/contact_sponsor" method="post">
-
+<div class="main-content">
+    <h2>Request</h2>
+    <form action="/contact_sponsor" method="POST">
         <div class="contact-form">
+            
             <div class="form-box">
-                <input type="text" id="" name="" placeholder="Enter full Name">
+                <label for="brand">Campaign Name</label>
+                <select name="brand_name" class="role">
+                    {% for campaign in campaigns %}
+                    <option value={{campaign.brand_name}}>{{campaign.brand_name}}</option>   
+                    {% endfor %}             
+                </select>
             </div>
             <div class="form-box">
-                <input type="text" placeholder="Enter your reach">
+                <label for="messages">Message</label>
+                <input type="String" id="messages" name="messages" required>
             </div>
             <div class="form-box">
-                <input type="text" placeholder="Platform Where Advertise ">
+                <label for="requirements">Requirements</label>
+                <input type="String" id="requirements" name="requirements" required>
             </div>
             <div class="form-box">
-                <input type="text" placeholder="Enter Email Id">
+                <label for="payment_amount">Payment Amount</label>
+                <input type="Integer" id="payment_amount" name="payment_amount" required>
             </div>
-            <div class="form-box">
-                <input type="text" placeholder="Budget Of Advertisement">
-            </div>
-            <div class="form-box">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Desc..."></textarea>
-            </div>
-            <div class="form-box">
-                <button type="submit" class="contact-btn">Submit</button>
-            </div>
+            <button class="btn" type="submit" value="submit">Submit</button>
         </div>
-    </div>
-</main>
+
+    </form>
+</div>
+
 {% endblock %}

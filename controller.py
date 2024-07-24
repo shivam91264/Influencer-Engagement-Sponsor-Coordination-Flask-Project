@@ -140,19 +140,6 @@ def campaign():
         return redirect('/login')
 
 
-# @app.route("/sponsor", methods=["GET", "POST"])
-# def sponsor():
-#     if "username" in session:
-#         user=Register.query.filter_by(username=session['username']).first()
-#         if user.role=='sponsor':
-#             return render_template('sponsor.html')
-#         else:
-#             return '<h1>Resticted Entry</h1>'
-#     else:
-#         return redirect('/login')
-
-
-
 
 
 @app.route("/add_campaign", methods=["GET", "POST"])
@@ -164,12 +151,13 @@ def campaign_add():
                 if request.method == 'POST':
                     user_id = user.id
                     company_name = request.form.get('company_name')
+                    brand_name = request.form.get('brand_name')
                     desc = request.form.get('desc')
                     industry = request.form.get('industry')
                     start_date = request.form.get('start_date')
                     end_date = request.form.get('end_date')
                     budget = request.form.get('budget')
-                    sponsor = Campaign(company_name=company_name,user_id=user_id, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
+                    sponsor = Campaign(company_name=company_name,brand_name=brand_name,user_id=user_id, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
                     db.session.add(sponsor)
                     db.session.commit()
                     flash('Campaign added successfully','success')
@@ -357,7 +345,9 @@ def influ_profile():
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='influencer':
             influencer=Influencers.query.filter_by(user_id=user.id).first()
-            return render_template('influencer_profile.html',influencer=influencer,role=user.role)
+            add_requests = Add_request.query.filter_by(too_id=user.id,status='pending')
+            renegotiate_requests = Add_request.query.filter_by(too_id=user.id,status='renegotiate')
+            return render_template('influencer_profile.html',influencer=influencer,role=user.role,add_requests=add_requests,renegotiate_requests=renegotiate_requests)
     return redirect('/login')
 
 
@@ -369,70 +359,203 @@ def sponsor_profile():
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='sponsor':
             sponsor=Sponsors.query.filter_by(user_id=user.id).first()
-            return render_template('sponsor_profile.html',sponsor=sponsor,role=user.role)
+            request_sponsor = Add_request.query.filter_by(from_id=user.id,status='pending')
+            renegotiate_sponsor = Add_request.query.filter_by(from_id=user.id,status='renegotiate')
+            
+            return render_template('sponsor_profile.html',sponsor=sponsor,role=user.role,request_sponsor=request_sponsor,renegotiate_sponsor=renegotiate_sponsor)
     return redirect('/login')
 
 
 
-# @app.route("/add_campaign", methods=["GET", "POST"])
-# def campaign_add():
-#     if "username" in session:
-#         user=Register.query.filter_by(username=session['username']).first()
-#         if user.role=='sponsor':     
-#             try:
-#                 if request.method == 'POST':
-#                     user_id = user.id
-#                     company_name = request.form.get('company_name')
-#                     desc = request.form.get('desc')
-#                     industry = request.form.get('industry')
-#                     start_date = request.form.get('start_date')
-#                     end_date = request.form.get('end_date')
-#                     budget = request.form.get('budget')
-#                     sponsor = Campaign(company_name=company_name,user_id=user_id, desc=desc, industry=industry, start_date=datetime.date.fromisoformat(start_date), end_date=datetime.date.fromisoformat(end_date), budget=budget)
-#                     db.session.add(sponsor)
-#                     db.session.commit()
-#                     flash('Campaign added successfully','success')
-#                     return redirect('/campaign')
-#             except Exception as e:
-#                 print(e)
-#                 return (f"error,{e}")
-#             return render_template('campaign_form.html',role=user.role)
-#         else:
-#             return 'Entry restricted'
-#     else:
-#         return redirect('/login')
 
 @app.route('/contact_influencer',methods=["GET", "POST"])
 def contact_influencer():
     if 'username' in session:
         user=Register.query.filter_by(username=session['username']).first()
-        if user.role=='sponsor':
-            
+        if user.role=='sponsor' : 
             try:
                 if request.method=='POST':
+                    influencer_username = request.form.get('options')
+                    from_id = user.id  # from id is come from user
+                    get_id = Register.query.filter_by(username=influencer_username).first()
+                    too_id = get_id.id
+                    brand_name = request.form.get('brand_name')
                     messages = request.form.get('messages')
                     requirements = request.form.get('requirements')
-                    payment_amount = request.form.get('payment_amount')
-                    status = request.form.get('status')
-                    influencer_request=add_request(messages=messages,requirements=requirements, payment_amount=payment_amount,status=status)
+                    payment_amount = float(request.form.get('payment_amount'))
+                    status = 'pending'
+                    influencer_request=Add_request(from_id=from_id,too_id=too_id,brand_name=brand_name,messages=messages,requirements=requirements, payment_amount=payment_amount,status=status)
                     db.session.add(influencer_request)
                     db.session.commit()
-                    flash('Profile updated successfully','success')
+                    flash('Request send successfully','success')
                     return redirect('/influencer')
             except Exception as e:
                 print(e)
                 return (f"error,{e}")
+            campaign=Campaign.query.all()
             query_influencers=Register.query.filter_by(role='influencer')
-            return render_template('contact_influencer.html',influencers=query_influencers)
+            return render_template('contact_influencer.html',influencers=query_influencers,campaigns=campaign)
 
         else:
             return 'Edit Restricted'
     else:
+        return redirect('/login')
+            
+@app.route('/contact_sponsor',methods=["GET", "POST"])
+def contact_sponsor():
+    if 'username' in session:
+        user=Register.query.filter_by(username=session['username']).first()
+        if user.role=='influencer' : 
+            try:
+                if request.method=='POST':
+                    brand_name = request.form.get('brand_name')
+                    too_id = user.id
+                    get_id = Campaign.query.filter_by(brand_name=brand_name).first()
+                    from_id =get_id.user_id
+                    messages = request.form.get('messages')
+                    requirements = request.form.get('requirements')
+                    payment_amount = float(request.form.get('payment_amount'))
+                    status = 'renegotiate'
+                    sponsor_request=Add_request(from_id=from_id,too_id=too_id,brand_name=brand_name,messages=messages,requirements=requirements, payment_amount=payment_amount,status=status)
+                    db.session.add(sponsor_request)
+                    db.session.commit()
+                    flash('Request send successfully','success')
+                    return redirect('/campaign')
+            except Exception as e:
+                print(e)
+                return (f"error,{e}")
+            campaign=Campaign.query.all()
+            return render_template('contact_campaign.html',campaigns=campaign)
+        else:
+            return 'Edit Restricted'
+    else:
         return redirect('/login')        
-    # return render_template('/contact_influencer.html')
 
 
-@app.route('/contact_campaign')
-def contact_campaign():
-    return render_template('/contact_campaign.html')
 
+
+
+@app.route("/accept_request/<int:id>")
+def accept_request(id):
+    if "username" in session:
+        user = Register.query.filter_by(username=session['username']).first()
+        if user.role == 'influencer':
+            request = Add_request.query.filter_by(request_id=id, too_id=user.id).first()
+            if request:
+                request.status = 'accepted'
+                db.session.commit()
+                flash('Request accepted ', 'success')
+                return redirect('/influencer_profile')
+    return redirect('/login')
+
+
+@app.route("/reject_request/<int:id>")
+def reject_request(id):
+    if "username" in session:
+        user = Register.query.filter_by(username=session['username']).first()
+        if user.role == 'influencer':
+            request = Add_request.query.filter_by(request_id=id, too_id=user.id).first()
+            if request:
+                request.status = 'rejected'
+                db.session.commit()
+                flash('Request rejected ', 'danger')
+                return redirect('/influencer_profile')
+    return redirect('/login')
+
+
+@app.route("/renegotiate_request/<int:id>",methods=["GET", "POST"])
+def renegotiate_request(id):
+    if "username" in session:
+        user = Register.query.filter_by(username=session['username']).first()
+        if user.role == 'influencer':
+            if request.method=='GET':
+                renegotiate=Add_request.query.filter_by(request_id=id).first()
+                return render_template('renegotiate.html',renegotiate=renegotiate)
+            elif request.method=='POST':
+                new_amount=request.form.get('payment_amount')
+                status = 'renegotiate'
+                renegotiate=Add_request.query.filter_by(request_id=id).first()
+                renegotiate.status=status
+                renegotiate.payment_amount=new_amount
+                db.session.commit()
+                flash('Renegotiate request sent ','success')
+                return redirect('/influencer_profile')
+    return redirect('/login')
+
+
+@app.route("/request_sponsor/<int:id>")
+def request_sponsor(id):
+    if "username" in session:
+        user = Register.query.filter_by(username=session['username']).first()
+        if user.role == 'sponsor':
+            request = Add_request.query.filter_by(request_id=id, from_id=user.id).first()
+            if request:
+                request.status = 'accepted'
+                db.session.commit()
+                flash('Request accepted ', 'success')
+                return redirect('/sponsor_profile')
+    return redirect('/login')
+
+
+@app.route("/edit_request/<int:id>",methods=["GET", "POST"])
+def edit_request(id):
+    if "username" in session:
+        user = Register.query.filter_by(username=session['username']).first()
+        if user.role == 'sponsor':
+            if request.method=='GET':
+                requests = Add_request.query.filter_by(request_id=id, from_id=user.id).first()
+                return render_template('edit_request.html',requests=requests)
+            if request.method == 'POST':
+                new_message = request.form.get('messages')
+                new_requirement = request.form.get('requirements')
+                new_payment = request.form.get('payment_amount')
+                fetch = Add_request.query.filter_by(request_id=id).first()
+                fetch.messages=new_message
+                fetch.requirements=new_requirement
+                fetch.payment_amount=new_payment
+                db.session.commit()
+            return redirect('/sponsor_profile')
+    return redirect('/login')
+
+@app.route("/delete_request/<int:id>")
+def delete_request(id):
+    if "username" in session:
+        user = Register.query.filter_by(username=session['username']).first()
+        if user.role == 'sponsor':
+                Add_request.query.filter_by(request_id=id).delete()
+                db.session.commit()
+                flash('Request deleted succesfully ', 'success')
+                return redirect('/sponsor_profile')
+    return redirect('/login')
+
+
+# @app.route("/reject_sponsor/<int:id>")
+# def reject_sponsor(id):
+#     if "username" in session:
+#         user = Register.query.filter_by(username=session['username']).first()
+#         if user.role == 'sponsor':
+#             request = add_request.query.filter_by(request_id=id, from_id=user.id).first()
+#             if request:
+#                 request.status = 'rejected'
+#                 db.session.commit()
+#                 flash('Request rejected ', 'danger')
+#                 return redirect('/sponsor_profile')
+#     return redirect('/login')
+
+
+@app.route("/renegotiate_sponsor/<int:id>",methods=["GET", "POST"])
+def renegotiate_sponsor(id):
+    if "username" in session:
+        user = Register.query.filter_by(username=session['username']).first()
+        if user.role == 'sponsor':
+            if request.method=='GET':
+                renegotiate=Add_request.query.filter_by(request_id=id).first()
+                return render_template('sponsor_renegotiate.html',renegotiate=renegotiate)
+            elif request.method=='POST':
+                new_amount=request.form.get('payment_amount')
+                renegotiate=Add_request.query.filter_by(request_id=id).first()
+                renegotiate.payment_amount=new_amount
+                db.session.commit()
+                flash('Renegotiate request sent ','success')
+                return redirect('/sponsor_profile')
+    return redirect('/login')

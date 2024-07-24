@@ -15,6 +15,7 @@ class Register(db.Model):
 class Campaign(db.Model):
     sponsor_id = db.Column(db.Integer(),primary_key=True)
     user_id = db.Column(db.Integer(),nullable=False)
+    brand_name = db.Column(db.String(),unique=True)
     company_name = db.Column(db.String(),nullable=False)
     desc = db.Column(db.String(),nullable=False)
     industry = db.Column(db.String(),nullable=False)
@@ -42,15 +43,14 @@ class Sponsors(db.Model):
     industry = db.Column(db.String(),nullable=False)
 
 
-class add_request(db.Model):
-    requist_id = db.Column(db.Integer(),primary_key=True)
+class Add_request(db.Model):
+    request_id = db.Column(db.Integer(),primary_key=True)
     from_id = db.Column(db.Integer(),nullable=False)
     too_id = db.Column(db.Integer(),nullable=False)
+    brand_name = db.Column(db.String,nullable=False)
     messages = db.Column(db.String(),nullable=False)
     requirements = db.Column(db.String(),nullable=False)
-    payment_amount = db.Column(db.String(),nullable=False)
+    payment_amount = db.Column(db.Integer(),nullable=False)
     status = db.Column(db.String(),nullable=False)
 
 
-    
-    

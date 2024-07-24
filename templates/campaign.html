@@ -13,6 +13,7 @@
         <div class="sponsors-card">
             <div class="spon-card">
                 <h3>Company Name:- {{sponsor.company_name}}</h3>
+                <p>Brand Name:- {{sponsor.brand_name}}</p>
                 <hr class="spon-hr">
                 <div class="card-mid">
                     <p>Description:- {{sponsor.desc}}</p>
@@ -27,7 +28,7 @@
                 <hr class="spon-hr">
                 <div class="spon-btn">
                     {% if role == "influencer" %}
-                    <button class="spon-sub"><a href="/contact_campaign">Contact Us</a></button>
+                    <button class="spon-sub"><a href="/contact_sponsor">Contact Us</a></button>
                     {% else %}
                     <button class="spon-sub"><a href="/edit_campaign/{{sponsor.sponsor_id}}">Edit</a></button>
                     <button class="spon-sub"><a href="/delete_campaign/{{sponsor.sponsor_id}}">Delete</a></button>

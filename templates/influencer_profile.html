@@ -3,7 +3,6 @@
 
 <div class="profile">
     <h1>User Profile</h1>
-
     <div class="profile-con">
         <div class="left-con">
             <div class="influ-profile">
@@ -13,95 +12,60 @@
                     <h2>Category:- {{ influencer.category }}</h2>
                     <h2>Niche:- {{ influencer.niche }}</h2>
                     <h2>Reach:- {{ influencer.reach }}</h2>
-                    <button style="width: 18vw;" class="btn"><a href="/edit_influencer/{{influencer.influencer_id}}">Edit</a></button>
+                    <button style="width: 18vw;" class="btn"><a
+                            href="/edit_influencer/{{influencer.influencer_id}}">Edit</a></button>
 
                 </div>
 
             </div>
 
         </div>
+
         <div class="right-con">
+            <h2>Receive</h2>
+
             <div class="campaigns">
+
+                {% for request in add_requests %}
+
                 <div class="campaign">
                     <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
+                        <p class="para">{{ request.from_id }}</p>
+                        <p class="para">{{ request.brand_name }}</p>
+                        <p class="para">{{ request.payment_amount }}</p>
                     </div>
                     <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
+                        <button class="btn"><a href="/accept_request/{{request.request_id}}">Accept</a></button>
+                        <button class="btn"><a href="/reject_request/{{request.request_id}}">Reject</a></button>
+                        <button class="btn"><a href="/renegotiate_request/{{request.request_id}}">Renegotiate</a></button>
                     </div>
                 </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
+                {% endfor %}
+
             </div>
+            <h2>Send</h2>
+
+            <div class="campaigns">
+                {% for renegotiate in renegotiate_requests %}
+
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">{{ renegotiate.from_id }}</p>
+                        <p class="para">{{ renegotiate.brand_name }}</p>
+                        <p class="para">{{ renegotiate.payment_amount }}</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn"><a href="/reject_request/{{request.request_id}}">Reject</a></button>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
         </div>
+
     </div>
+
 </div>
 
 {% endblock %}

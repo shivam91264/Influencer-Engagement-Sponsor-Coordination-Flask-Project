@@ -1,33 +1,36 @@
 {% extends 'layout.html' %}
 {% block body %}
-<div class="login">
+<div class="main-content">
     <h2>Add Request</h2>
-
-
-    <form action="/coontact_influencer" method="POST">
-        <div class="form">
-            <div class="form-list">
+    <form action="/contact_influencer" method="POST">
+        <div class="contact-form">
+            <div class="form-box">
+                <label for="username">Influencer Username</label>
                 <select name="options" class="role">
                     {% for influencer in influencers %}
-                    <option value="influencer">{{influencer.username}}</option>   
+                    <option value={{influencer.username}}>{{influencer.username}}</option>   
                     {% endfor %}             
                 </select>
             </div>
-            <div class="form-list">
+            <div class="form-box">
+                <label for="brand">Brand Name</label>
+                <select name="brand_name" class="role">
+                    {% for campaign in campaigns %}
+                    <option value={{campaign.brand_name}}>{{campaign.brand_name}}</option>   
+                    {% endfor %}             
+                </select>
+            </div>
+            <div class="form-box">
                 <label for="messages">Message</label>
                 <input type="String" id="messages" name="messages" required>
             </div>
-            <div class="form-list">
+            <div class="form-box">
                 <label for="requirements">Requirements</label>
                 <input type="String" id="requirements" name="requirements" required>
             </div>
-            <div class="form-list">
+            <div class="form-box">
                 <label for="payment_amount">Payment Amount</label>
-                <input type="String" id="payment_amount" name="payment_amount" required>
-            </div>
-            <div class="form-list">
-                <label for="status">Status</label>
-                <input type="String" id="status" name="status" required>
+                <input type="Integer" id="payment_amount" name="payment_amount" required>
             </div>
             <button class="btn" type="submit" value="submit">Submit</button>
         </div>

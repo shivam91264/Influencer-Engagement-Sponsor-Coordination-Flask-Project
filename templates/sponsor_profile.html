@@ -19,85 +19,50 @@
 
         </div>
         <div class="right-con">
+
+
+            <h2>Send</h2>
             <div class="campaigns">
+                {% for request in request_sponsor %}
+
                 <div class="campaign">
                     <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
+                        <p class="para">{{ request.from_id }}</p>
+                        <p class="para">{{ request.brand_name }}</p>
+                        <p class="para">{{ request.payment_amount }}</p>
                     </div>
                     <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
+                        <button class="btn"><a href="/edit_request/{{request.request_id}}">Edit</a></button>
+                        <button class="btn"><a href="/delete_request/{{request.request_id}}">Delete</a></button>
                     </div>
                 </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
-                <div class="campaign">
-                    <div class="camp-content">
-                        <p class="para">ASHISH CHANCHALANI</p>
-                        <p class="para">25000 Rs</p>
-                    </div>
-                    <div class="camp-btn">
-                        <button class="btn">Accept</button>
-                        <button class="btn">Reject</button>
-                        <button class="btn">Renogotiate</button>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+
+
+
+            <h2>Recieve</h2>
+
+            <div class="campaigns">
+                {% for renegotiate in renegotiate_sponsor %}
+
+                <div class="campaign">
+                    <div class="camp-content">
+                        <p class="para">{{ renegotiate.from_id }}</p>
+                        <p class="para">{{ renegotiate.brand_name }}</p>
+                        <p class="para">{{ renegotiate.payment_amount }}</p>
+                    </div>
+                    <div class="camp-btn">
+                        <button class="btn"><a href="/request_sponsor/{{renegotiate.request_id}}">Accept</a></button>
+                        <button class="btn"><a href="/delete_request/{{renegotiate.request_id}}">Delete</a></button>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+
+            
         </div>
     </div>
 </div>

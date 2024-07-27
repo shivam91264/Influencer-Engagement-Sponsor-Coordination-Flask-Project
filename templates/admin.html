@@ -2,7 +2,63 @@
 {% block body %}
 
 
-<h1>admin page</h1>
+<div class="admin-con">
+    <h1>Admin Dashboard</h1>
+    <div class="top-con">
+        <div class="first-top">
+            <h2>Total Users</h2>
+            <h1>{{total_users}}</h1>
+        </div>
+        <div class="first-top">
+            <h2>Total Influencers</h2>
+            <h1>{{count_influencer_active_user}}</h1>
+        </div>
+        <div class="first-top">
+            <h2>Total Sponsors</h2>
+            <h1>{{count_sponsor_active_user}}</h1>
+        </div>
+        <div class="first-top">
+            <h2>Total Campaigns</h2>
+            <h1>{{count_campaigns}}</h1>
+        </div>
+    </div>
+    <div class="bot-con">
+        <div class="first-bot">
+            <div class="hor">
+                <div class="ver">
+                    <h2>Pending Requests</h2>
+                    <h1>{{count_pending}}</h1>
+                </div>
+                <div class="ver">
+                    <h2>Accepted Requests</h2>
+                    <h1>{{count_accepted}}</h1>
+                </div>
+            </div>
+            <div class="hor">
+                <div class="ver">
+                    <h2>Rejected Requests</h2>
+                    <h1>{{count_rejected}}</h1>
+                </div>
+                <div class="ver">
+                    <h2>Renegotiate Requests</h2>
+                    <h1>{{count_renegotiate}}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="sec-bot">
+            <div class="sec-hor">
+                <h2>Flaged Sponsors</h2>
+                <h1>{{flaged_sponsor}}</h1>
+            </div>
+            <div class="sec-hor">
+                <h2>Flaged Influencers</h2>
+                <h1>{{flaged_influencer}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 {% endblock %}

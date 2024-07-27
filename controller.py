@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,session,flash,url_for,send_file
+from flask import render_template,request,redirect,session,flash,send_file
 from werkzeug.security import generate_password_hash , check_password_hash
 import datetime
 from main import *
@@ -68,6 +68,9 @@ def login():
 
         try:
             user = Register.query.filter_by(role=role, username=username).first()
+            if user.flag == True :
+                flash('You are flaged please contact admin','danger')
+                return redirect('/login')
             
             if user and check_password_hash(user.password, password):
                 session['username']=username
@@ -109,7 +112,20 @@ def admin():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
         if user.role=='admin':
-            return render_template('admin.html')
+            active_user=Register.query.all()
+            campaigns=Campaign.query.all()
+            statuss=Add_request.query.all()
+            count_influencer_active_user=len([user for user in active_user if user.flag==False and user.role=='influencer'])
+            count_sponsor_active_user=len([user for user in active_user if user.flag==False and user.role=='sponsor'])
+            total_users = count_influencer_active_user + count_sponsor_active_user
+            count_campaigns=len([campaign for campaign in campaigns])
+            count_pending=len([status for status in statuss if status.status=="pending"])
+            count_accepted=len([status for status in statuss if status.status=='accepted'])
+            count_rejected=len([status for status in statuss if status.status=='rejected'])
+            count_renegotiate=len([status for status in statuss if status.status=='renegotiate'])
+            flaged_sponsor=len([flaged for flaged in active_user if flaged.flag==True and flaged.role=='sponsor'])
+            flaged_influencer=len([flaged for flaged in active_user if flaged.flag==True and flaged.role=='influencer'])
+            return render_template('admin.html',total_users=total_users,count_influencer_active_user=count_influencer_active_user,count_sponsor_active_user=count_sponsor_active_user,count_campaigns=count_campaigns,count_pending=count_pending,count_accepted=count_accepted,count_rejected=count_rejected,count_renegotiate=count_renegotiate,flaged_sponsor=flaged_sponsor,flaged_influencer=flaged_influencer)
         else:
             return '<h1>Resticted Entry</h1>'
     else:
@@ -120,12 +136,26 @@ def influencer():
     if "username" in session:
         influencer=Influencers.query.all()
         user=Register.query.filter_by(username=session['username']).first()
-        if user.role=='influencer' or user.role=='sponsor':
+        if user.role=='influencer' or user.role=='sponsor' or user.role=='admin':
             return render_template('influencer.html',influencers=influencer,role=user.role)
         else:
             return '<h1>Resticted Entry</h1>'
     else:
         return redirect('/login')
+    
+
+@app.route("/sponsor", methods=["GET", "POST"])
+def sponsor():
+    if "username" in session:
+        sponsor=Sponsors.query.all()
+        user=Register.query.filter_by(username=session['username']).first()
+        if  user.role=='admin' :
+            return render_template('sponsor.html',sponsors=sponsor,role=user.role)
+        else:
+            return '<h1>Resticted Entry</h1>'
+    else:
+        return redirect('/login')
+
 
 @app.route("/campaign", methods=["GET"])
 def campaign():
@@ -392,7 +422,7 @@ def contact_influencer():
             except Exception as e:
                 print(e)
                 return (f"error,{e}")
-            campaign=Campaign.query.all()
+            campaign=Campaign.query.filter_by(user_id=user.id)
             query_influencers=Register.query.filter_by(role='influencer')
             return render_template('contact_influencer.html',influencers=query_influencers,campaigns=campaign)
 
@@ -529,18 +559,6 @@ def delete_request(id):
     return redirect('/login')
 
 
-# @app.route("/reject_sponsor/<int:id>")
-# def reject_sponsor(id):
-#     if "username" in session:
-#         user = Register.query.filter_by(username=session['username']).first()
-#         if user.role == 'sponsor':
-#             request = add_request.query.filter_by(request_id=id, from_id=user.id).first()
-#             if request:
-#                 request.status = 'rejected'
-#                 db.session.commit()
-#                 flash('Request rejected ', 'danger')
-#                 return redirect('/sponsor_profile')
-#     return redirect('/login')
 
 
 @app.route("/renegotiate_sponsor/<int:id>",methods=["GET", "POST"])
@@ -558,4 +576,47 @@ def renegotiate_sponsor(id):
                 db.session.commit()
                 flash('Renegotiate request sent ','success')
                 return redirect('/sponsor_profile')
+    return redirect('/login')
+
+
+
+
+@app.route('/flag_user/<int:id>')
+def flag_user(id):
+    if "username" in session:
+        admin_user = Register.query.filter_by(username=session['username']).first()
+        if admin_user.role=='admin':
+            user = Register.query.filter_by(id=id).first()
+            if user:
+                if user.flag==False:
+                    user.flag = True
+                    flash('User Flaged Successfully','danger')
+                else:
+                    user.flag = False
+                    flash('User Unflaged Successfully','success')
+                db.session.commit()
+                return redirect('/influencer')
+            else:
+                flash('User Not Found','danger')
+                return redirect('/influencer')
+        else:
+            return 'Restricted Entry'
+    else:
+        return redirect('/login')
+    
+
+@app.route('/search',methods=["GET", "POST"])
+def search():
+    if "username" in session:
+        if request.method=='POST':
+            user = Register.query.filter_by(username=session['username']).first()
+            input_query = request.form.get('search')
+            if user.role=='sponsor':
+                influencers=Influencers.query.filter(Influencers.name.ilike(f"%{input_query}%")).all()
+                return render_template('search.html',influencers=influencers,role=user.role)
+            elif user.role=='influencer':
+                campaign=Campaign.query.filter(Campaign.company_name.ilike(f"%{input_query}%")).all()
+                print([campaign1 for campaign1 in campaign])
+                return render_template('search.html',campaign=campaign,role=user.role)    
+        return render_template('search.html')
     return redirect('/login')

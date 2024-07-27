@@ -3,29 +3,28 @@
 
 <div class="influencers">
     <div class="heading">
-        <h1>Influencers</h1>
+        <h1>Sponsors</h1>
     </div>
-
+    
     <div class="influe-cards">
-        {% for influencer in influencers %}
+        {% for sponsor in sponsors %}
 
         <div class="influe-cards-1">
 
             <div class="influe-card font-color1">
-                <img width="320px" src="{{ url_for('get_image',  image_id=influencer.influencer_id) }}" alt="img">
+                <img width="320px" src="{{ url_for('get_image1',  image_id=sponsor.sponsor_id) }}" alt="img">
 
                 <div class="desc">
-                    <h2>Name- {{influencer.name}}</h2>
-                    <p>Category:- {{influencer.category}}</p>
-                    <p>Niche:- {{influencer.niche}}</p>
-                    <p>Reach:- {{influencer.reach}}</p>
+                    <h3>Name- {{sponsor.company_name}}</h3>
+                    <p>Industry:- {{sponsor.industry}}</p>
+                    <p>Desc:- {{sponsor.desc}}</p>
                 </div>
                 <hr class="spon-hr">
                 <div class="spon-btn ">
                     {% if role == "sponsor" %}
                     <button class="spon-sub btn-hoco"><a href="/contact_influencer">Contact Me</a></button>
                     {% elif role == "admin" %}
-                    <button class="spon-sub btn-hoco"><a href="/flag_user/{{influencer.user_id}}">Flag/unflag</a></button>
+                    <button class="spon-sub btn-hoco"><a href="/flag_user/{{sponsor.user_id}}">Flag/unflag</a></button>
                     {% else %}
                     <button class="spon-sub btn-hoco"><a href="/edit_influencer/{{influencer.influencer_id}}">Edit</a></button>
                     {% endif %}
@@ -40,4 +39,5 @@
     </div>
 
 </div>
-    {% endblock %}
+
+{% endblock %}

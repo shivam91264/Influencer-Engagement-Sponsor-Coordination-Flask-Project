@@ -22,6 +22,7 @@ db.init_app(app)
 app.app_context().push()
 app.secret_key='dfgdxferg'
 from controller import *
+from api import *
 from model import *
 
 if __name__ == "__main__":

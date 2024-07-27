@@ -10,6 +10,7 @@ class Register(db.Model):
     username = db.Column(db.String(),nullable=False,unique=True)
     email = db.Column(db.String(),nullable=False)
     password = db.Column(db.String(),nullable=False)
+    flag = db.Column(db.Boolean(),nullable=False,default=False)
     
 
 class Campaign(db.Model):

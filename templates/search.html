@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="search-page">
+<div class="search">
+    <form action="/search" method="POST">
+        <input type="Search" name="search" placeholder="Search">
+        <button class="card-btn">Search</button>
+    </form>
+</div>
+
+
+{% if role == "sponsor" %}
+<div class="influe-cards">
+    {% for influencer in influencers %}
+
+    <div class="influe-cards-1">
+
+        <div class="influe-card font-color1">
+            <img width="320px" src="{{ url_for('get_image',  image_id=influencer.influencer_id) }}" alt="img">
+
+            <div class="desc">
+                <h2>Name- {{influencer.name}}</h2>
+                <p>Category:- {{influencer.category}}</p>
+                <p>Niche:- {{influencer.niche}}</p>
+                <p>Reach:- {{influencer.reach}}</p>
+            </div>
+            <hr class="spon-hr">
+            <div class="spon-btn ">
+                {% if role == "sponsor" %}
+                <button class="spon-sub btn-hoco"><a href="/contact_influencer">Contact Me</a></button>
+                {% elif role == "admin" %}
+                <button class="spon-sub btn-hoco"><a href="/flag_user/{{influencer.user_id}}">Flag/unflag</a></button>
+                {% else %}
+                <button class="spon-sub btn-hoco"><a
+                        href="/edit_influencer/{{influencer.influencer_id}}">Edit</a></button>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+
+{% if role == "influencer" %}
+<div class="sponsors-cards">
+    {% for sponsor in campaign %}
+    <div class="sponsors-card">
+        <div class="spon-card">
+            <h3>Company Name:- {{sponsor.company_name}}</h3>
+            <p>Brand Name:- {{sponsor.brand_name}}</p>
+            <hr class="spon-hr">
+            <div class="card-mid">
+                <p>Description:- {{sponsor.desc}}</p>
+                <p>Budget:-- {{sponsor.budget}}</p>
+            </div>
+            <hr class="spon-hr">
+            <div class="card-bot">
+                <button>{{sponsor.industry}}</button>
+                <button>{{sponsor.start_date}}</button>
+                <button>{{sponsor.end_date}}</button>
+            </div>
+            <hr class="spon-hr">
+            <div class="spon-btn">
+                {% if role == "influencer" %}
+                <button class="spon-sub"><a href="/contact_sponsor">Contact Us</a></button>
+                {% else %}
+                <button class="spon-sub"><a href="/edit_campaign/{{sponsor.sponsor_id}}">Edit</a></button>
+                <button class="spon-sub"><a href="/delete_campaign/{{sponsor.sponsor_id}}">Delete</a></button>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+</div>
+
+
+{% endblock %}

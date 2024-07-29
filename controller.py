@@ -8,7 +8,7 @@ from io import BytesIO
 
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])   # route for register user
 def register():
 
     if 'username' in session:
@@ -49,7 +49,7 @@ def register():
 
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])   # route for login user
 def login():
     if 'username' in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -88,7 +88,7 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/logout',methods=["GET", "POST"])
+@app.route('/logout',methods=["GET", "POST"])    # route for logout user
 def log_out():
     if 'username' in session:
         session.pop('username')
@@ -97,17 +97,19 @@ def log_out():
         return redirect('/login')
     
 
-# ===============================================================================================================================
-@app.route('/home',methods=["GET", "POST"])
+@app.route('/home',methods=["GET", "POST"])    # route for home page
 def home():
     if 'username' in session:
-        return render_template('home.html') 
+            user=Register.query.filter_by(username=session['username']).first()
+            if user.role=='influencer' or user.role=='sponsor':
+                return render_template('home.html',role=user.role)
+            else:
+                return '<h1>Resticted Entry</h1>' 
     else:
         return redirect('/login')  
-#================================================================================================================================
 
 
-@app.route("/admin", methods=["GET", "POST"])
+@app.route("/admin", methods=["GET", "POST"])   # route for admin
 def admin():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -131,7 +133,7 @@ def admin():
     else:
         return redirect('/login')
 
-@app.route("/influencer", methods=["GET", "POST"])
+@app.route("/influencer", methods=["GET", "POST"])    # route for influencer
 def influencer():
     if "username" in session:
         influencer=Influencers.query.all()
@@ -144,7 +146,7 @@ def influencer():
         return redirect('/login')
     
 
-@app.route("/sponsor", methods=["GET", "POST"])
+@app.route("/sponsor", methods=["GET", "POST"])   # route for sponsor
 def sponsor():
     if "username" in session:
         sponsor=Sponsors.query.all()
@@ -157,7 +159,7 @@ def sponsor():
         return redirect('/login')
 
 
-@app.route("/campaign", methods=["GET"])
+@app.route("/campaign", methods=["GET"])   # route for campaign
 def campaign():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -172,7 +174,7 @@ def campaign():
 
 
 
-@app.route("/add_campaign", methods=["GET", "POST"])
+@app.route("/add_campaign", methods=["GET", "POST"])   # route for add new campaign
 def campaign_add():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -197,12 +199,12 @@ def campaign_add():
                 return (f"error,{e}")
             return render_template('campaign_form.html',role=user.role)
         else:
-            return 'Entry restricted'
+            return '<h1>Resticted Entry</h1>'
     else:
         return redirect('/login')
     
 
-@app.route("/influencer_form", methods=["GET", "POST"])
+@app.route("/influencer_form", methods=["GET", "POST"])    # route for create influencer profile
 def influencer_form():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -211,7 +213,7 @@ def influencer_form():
                 if request.method == 'POST':
                     img=request.files['img']
                     if not img:
-                        return 'img not uploaded'
+                        return '<h1> img not uploaded </h1>'
                     user_id=user.id
                     name = request.form.get('name')
                     category = request.form.get('category')
@@ -227,12 +229,12 @@ def influencer_form():
                 return (f"error,{e}")
             return render_template('influencer_form.html',role=user.role)
         else:
-            return 'Entry restricted'
+            return '<h1>Resticted Entry</h1>'
     else:
         return redirect('/login')
     
 
-@app.route("/sponsor_form", methods=["GET", "POST"])
+@app.route("/sponsor_form", methods=["GET", "POST"])   # route for create sponsor profile
 def sponsor_form():
     if "username" in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -241,7 +243,7 @@ def sponsor_form():
                 if request.method == 'POST':
                     img=request.files['img']
                     if not img:
-                        return 'img not uploaded'
+                        return '<h1> img not uploaded </h1>'
                     user_id=user.id
                     company_name = request.form.get('company_name')
                     desc = request.form.get('desc')
@@ -256,19 +258,19 @@ def sponsor_form():
                 return (f"error,{e}")
             return render_template('sponsor_form.html',role=user.role)
         else:
-            return 'Entry restricted'
+            return '<h1>Resticted Entry</h1>'
     else:
         return redirect('/login')
 
 
-@app.route('/image/<int:image_id>')
+@app.route('/image/<int:image_id>')    # route for upload influencer image
 def get_image(image_id):
     image = Influencers.query.filter_by(influencer_id = image_id).first()
     if not image:
         return 'Image not found', 404
     return send_file(BytesIO(image.img), mimetype='image/jpeg')
 
-@app.route('/image1/<int:image_id>')
+@app.route('/image1/<int:image_id>')   # route for upload sponsor image
 def get_image1(image_id):
     image = Sponsors.query.filter_by(sponsor_id = image_id).first()
     if not image:
@@ -276,7 +278,7 @@ def get_image1(image_id):
     return send_file(BytesIO(image.img), mimetype='image/jpeg')
 
 
-@app.route("/delete_campaign/<int:id>")
+@app.route("/delete_campaign/<int:id>")  # route for delete exitisting campaign
 def delete_camp(id):
         if "username" in session:
             user=Register.query.filter_by(username=session['username']).first()
@@ -286,19 +288,19 @@ def delete_camp(id):
                 flash('Card deleted successfully!!')
                 return redirect('/campaign')
             else:
-                return 'Delete Restricted'
+                return '<h1> Delete Restricted </h1>'
         else:
             return redirect ('/login')
 
 
-@app.route("/edit_campaign/<int:id>",methods=["GET", "POST"]) # This route handle both GET and POST request and id in url get as an integer and passed to function edit_camp 
+@app.route("/edit_campaign/<int:id>",methods=["GET", "POST"])   # route for edit Exist campaign
 def edit_campaign(id):
-        if "username" in session:  # This line check  username key present in session or not 
-            user=Register.query.filter_by(username=session['username']).first()  # This line check records from register table based on username present in session and store it in user variable
-            if user.role=='sponsor' or user.role=='admin': # it will check if user role is sponsor or admin
+        if "username" in session:  
+            user=Register.query.filter_by(username=session['username']).first()  
+            if user.role=='sponsor' or user.role=='admin': 
                 if request.method=='GET':     
-                    campaign=Campaign.query.filter_by(sponsor_id=id).first() # this line check data from sponnsor table and store it in campaign  varibale
-                    return render_template('edit_campaign.html',campaign=campaign,role=user.role) # this line pass the campaign data to edit_campaign page
+                    campaign=Campaign.query.filter_by(sponsor_id=id).first() 
+                    return render_template('edit_campaign.html',campaign=campaign,role=user.role) 
                 elif request.method=='POST':
                     campaign=Campaign.query.filter_by(sponsor_id=id).first()
                     campaign.company_name = request.form.get('company_name')
@@ -307,17 +309,17 @@ def edit_campaign(id):
                     campaign.start_date=datetime.date.fromisoformat(request.form.get('start_date'))
                     campaign.end_date=datetime.date.fromisoformat(request.form.get('end_date'))
                     campaign.budget = request.form.get('budget')
-                    db.session.commit()  # it will save all the changes in database and flash a msg then it will hit the campaign route
+                    db.session.commit()  
                     flash('Your card updated successfully','success')
                     return redirect('/campaign')
             else:
-                return 'Edit Restricted' # if user role is not sponsor or admin then it will return edit restricted
+                return '<h1> Edit Restricted </h1>' 
         else:
-            return redirect ('/login')  # if username not in session then it redirect to login route
+            return redirect ('/login')  
         
 
 
-@app.route("/edit_influencer/<int:id>",methods=["GET", "POST"])
+@app.route("/edit_influencer/<int:id>",methods=["GET", "POST"])   # route for edit influencer profile
 def edit_influencer(id):
         if "username" in session:
             user=Register.query.filter_by(username=session['username']).first()
@@ -338,11 +340,11 @@ def edit_influencer(id):
                     flash('Profile updated successfully','success')
                     return redirect('/influencer_profile')
             else:
-                return 'Edit Restricted'
+                return '<h1> Edit Restricted </h1>'
         else:
             return redirect ('/login')
         
-@app.route("/edit_sponsor/<int:id>",methods=["GET", "POST"])
+@app.route("/edit_sponsor/<int:id>",methods=["GET", "POST"])  # route for edit sponsor profile
 def edit_sponsor(id):
         if "username" in session:
             user=Register.query.filter_by(username=session['username']).first()
@@ -362,14 +364,14 @@ def edit_sponsor(id):
                     flash('Profile updated successfully','success')
                     return redirect('/sponsor_profile')
             else:
-                return 'Edit Restricted'
+                return '<h1> Edit Restricted </h1>'
         else:
             return redirect ('/login')
 
 
 
 
-@app.route("/influencer_profile")
+@app.route("/influencer_profile")   # route for influencer profile
 def influ_profile():
     if 'username' in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -383,7 +385,7 @@ def influ_profile():
 
 
 
-@app.route("/sponsor_profile")
+@app.route("/sponsor_profile")   # route for sponsor profile
 def sponsor_profile():
     if 'username' in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -398,7 +400,7 @@ def sponsor_profile():
 
 
 
-@app.route('/contact_influencer',methods=["GET", "POST"])
+@app.route('/contact_influencer',methods=["GET", "POST"])   # route for contact influencers
 def contact_influencer():
     if 'username' in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -427,11 +429,11 @@ def contact_influencer():
             return render_template('contact_influencer.html',influencers=query_influencers,campaigns=campaign)
 
         else:
-            return 'Edit Restricted'
+            return '<h1> Edit Restricted </h1>'
     else:
         return redirect('/login')
             
-@app.route('/contact_sponsor',methods=["GET", "POST"])
+@app.route('/contact_sponsor',methods=["GET", "POST"])    # route for contact sponsors
 def contact_sponsor():
     if 'username' in session:
         user=Register.query.filter_by(username=session['username']).first()
@@ -457,7 +459,7 @@ def contact_sponsor():
             campaign=Campaign.query.all()
             return render_template('contact_campaign.html',campaigns=campaign)
         else:
-            return 'Edit Restricted'
+            return '<h1> Edit Restricted </h1>'
     else:
         return redirect('/login')        
 
@@ -465,7 +467,7 @@ def contact_sponsor():
 
 
 
-@app.route("/accept_request/<int:id>")
+@app.route("/accept_request/<int:id>")    # route for accept request
 def accept_request(id):
     if "username" in session:
         user = Register.query.filter_by(username=session['username']).first()
@@ -479,7 +481,7 @@ def accept_request(id):
     return redirect('/login')
 
 
-@app.route("/reject_request/<int:id>")
+@app.route("/reject_request/<int:id>")   # route for reject request
 def reject_request(id):
     if "username" in session:
         user = Register.query.filter_by(username=session['username']).first()
@@ -493,7 +495,7 @@ def reject_request(id):
     return redirect('/login')
 
 
-@app.route("/renegotiate_request/<int:id>",methods=["GET", "POST"])
+@app.route("/renegotiate_request/<int:id>",methods=["GET", "POST"])   # route for renegotiate request
 def renegotiate_request(id):
     if "username" in session:
         user = Register.query.filter_by(username=session['username']).first()
@@ -513,7 +515,7 @@ def renegotiate_request(id):
     return redirect('/login')
 
 
-@app.route("/request_sponsor/<int:id>")
+@app.route("/request_sponsor/<int:id>")    # route for send request to sponsor
 def request_sponsor(id):
     if "username" in session:
         user = Register.query.filter_by(username=session['username']).first()
@@ -527,7 +529,7 @@ def request_sponsor(id):
     return redirect('/login')
 
 
-@app.route("/edit_request/<int:id>",methods=["GET", "POST"])
+@app.route("/edit_request/<int:id>",methods=["GET", "POST"])   # route for edit request 
 def edit_request(id):
     if "username" in session:
         user = Register.query.filter_by(username=session['username']).first()
@@ -547,7 +549,7 @@ def edit_request(id):
             return redirect('/sponsor_profile')
     return redirect('/login')
 
-@app.route("/delete_request/<int:id>")
+@app.route("/delete_request/<int:id>")    # route for delete request
 def delete_request(id):
     if "username" in session:
         user = Register.query.filter_by(username=session['username']).first()
@@ -561,7 +563,7 @@ def delete_request(id):
 
 
 
-@app.route("/renegotiate_sponsor/<int:id>",methods=["GET", "POST"])
+@app.route("/renegotiate_sponsor/<int:id>",methods=["GET", "POST"])    # route for renegotiate  request
 def renegotiate_sponsor(id):
     if "username" in session:
         user = Register.query.filter_by(username=session['username']).first()
@@ -581,7 +583,7 @@ def renegotiate_sponsor(id):
 
 
 
-@app.route('/flag_user/<int:id>')
+@app.route('/flag_user/<int:id>')  # route for flag or unflag user
 def flag_user(id):
     if "username" in session:
         admin_user = Register.query.filter_by(username=session['username']).first()
@@ -595,17 +597,21 @@ def flag_user(id):
                     user.flag = False
                     flash('User Unflaged Successfully','success')
                 db.session.commit()
-                return redirect('/influencer')
+                if user.role == 'influencer':
+                    return redirect('/influencer')
+                else:
+                    return redirect('/sponsor')
+                # return redirect('/influencer')
             else:
                 flash('User Not Found','danger')
                 return redirect('/influencer')
         else:
-            return 'Restricted Entry'
+            return '<h1> Restricted Entry </h1>'
     else:
         return redirect('/login')
     
 
-@app.route('/search',methods=["GET", "POST"])
+@app.route('/search',methods=["GET", "POST"])   # route for search influencers or campaigns
 def search():
     if "username" in session:
         if request.method=='POST':
@@ -617,6 +623,7 @@ def search():
             elif user.role=='influencer':
                 campaign=Campaign.query.filter(Campaign.company_name.ilike(f"%{input_query}%")).all()
                 print([campaign1 for campaign1 in campaign])
-                return render_template('search.html',campaign=campaign,role=user.role)    
-        return render_template('search.html')
+                return render_template('search.html',campaign=campaign,role=user.role) 
+        user = Register.query.filter_by(username=session['username']).first()
+        return render_template('search.html',role=user.role)
     return redirect('/login')

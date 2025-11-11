@@ -44,11 +44,14 @@ Here’s how you can set up and run this project on your local machine:
 
 ### 2. Set Up a Virtual Environment :-
         python -m venv venv
+        
+### 3. Activate Virtual Environment :-
+        venv\Scripts\activate
 
-### 3. Install Dependencies :-
+### 4. Install Dependencies :-
         pip install -r requirement.txt
 
-###  4. Run the App :-
+###  5. Run the App :-
         Python main.py
 
 
